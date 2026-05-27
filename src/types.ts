@@ -3,15 +3,17 @@ export type localeUnionTypes = "el" | "en" | "ru";
 export interface GameConfig {
 	id: string;
 	locale: localeUnionTypes;
-	players: {
-		you: { fullName: string; shortName: string };
-		partner: { fullName: string; shortName: string };
-		front: { fullName: string; shortName: string };
-		right: { fullName: string; shortName: string };
-	};
+	teams: Teams[];
 	isTotska: boolean;
 	gameState: "notStarted" | "inProgress" | "completed";
+	round: number;
 }
+
+type Teams = {
+	fullName: string;
+	shortName: string;
+	points: number;
+};
 
 export type GameContextType = {
 	config: GameConfig;

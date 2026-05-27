@@ -1,0 +1,13 @@
+.round-info {
+	display: flex;
+	justify-content: space-between;
+	margin: 0;
+}
+
+h5 {
+	margin: 0;
+}
+
+p {
+	margin: 0;
+}

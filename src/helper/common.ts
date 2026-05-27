@@ -1,9 +1,3 @@
-export const getShortName = (fullName: unknown) => {
-	if (typeof fullName === "string") {
-		return fullName
-			.split(" ")
-			.map((word) => word[0])
-			.join("")
-			.toUpperCase();
-	}
+export const getShortName = (fullName: FormDataEntryValue) => {
+	return String(fullName)[0].toUpperCase();
 };
