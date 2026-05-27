@@ -10,6 +10,7 @@ export interface GameConfig {
 		right: { fullName: string; shortName: string };
 	};
 	isTotska: boolean;
+	gameState: "notStarted" | "inProgress" | "completed";
 }
 
 export type GameContextType = {
@@ -17,4 +18,5 @@ export type GameContextType = {
 	setLanguage: (locale: localeUnionTypes) => void;
 	setPlayersName: (players: GameConfig["players"]) => void;
 	setIsTotska: (isTotska: boolean) => void;
+	setGameState: (gameState: GameConfig["gameState"]) => void;
 };

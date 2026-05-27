@@ -5,10 +5,10 @@ import styles from "./Setup.module.css";
 
 export const Setup = () => {
 	const navigate = useNavigate();
-	const { setPlayersName, setIsTotska, config } = useGameStore();
-	console.log(config);
+	const { setPlayersName, setIsTotska, setGameState, config } = useGameStore();
+	if (config) console.log(config);
 
-	const setGameData = (formData: FormData) => {
+	const mapFormDataToPlayersNames = (formData: FormData) => {
 		setPlayersName({
 			you: {
 				fullName: String(formData.get("you")),
@@ -33,8 +33,9 @@ export const Setup = () => {
 		<div className={styles.container}>
 			<form
 				action={(formData) => {
-					setGameData(formData);
-					if (config) navigate("/round");
+					mapFormDataToPlayersNames(formData);
+					setGameState("inProgress");
+					navigate("/round");
 				}}
 			>
 				<div className={styles.inputs}>

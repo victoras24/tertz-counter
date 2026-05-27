@@ -29,6 +29,7 @@ const defaultConfigs: GameConfig = {
 		},
 	},
 	isTotska: false,
+	gameState: "notStarted",
 };
 
 export function GameStoreProvider({ children }: { children: React.ReactNode }) {
@@ -44,9 +45,12 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 	const setIsTotska = (isTotska: boolean) =>
 		setConfig((prev) => ({ ...prev, isTotska: isTotska }));
 
+	const setGameState = (gameState: GameConfig["gameState"]) =>
+		setConfig((prev) => ({ ...prev, gameState: gameState }));
+
 	return (
 		<GameContext.Provider
-			value={{ config, setLanguage, setPlayersName, setIsTotska }}
+			value={{ config, setLanguage, setPlayersName, setIsTotska, setGameState }}
 		>
 			{children}
 		</GameContext.Provider>
