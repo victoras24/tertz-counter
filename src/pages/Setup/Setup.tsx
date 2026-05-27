@@ -1,21 +1,42 @@
+import { useNavigate } from "react-router-dom";
+import { getShortName } from "../../helper/common";
 import { useGameStore } from "../../stores/GameStore";
 import styles from "./Setup.module.css";
 
 export const Setup = () => {
+	const navigate = useNavigate();
 	const { setPlayersName, setIsTotska, config } = useGameStore();
 	console.log(config);
-	const formAction = (formData: FormData) => {
+
+	const setGameData = (formData: FormData) => {
 		setPlayersName({
-			you: String(formData.get("you")),
-			partner: String(formData.get("partner")),
-			front: String(formData.get("front")),
-			right: String(formData.get("right")),
+			you: {
+				fullName: String(formData.get("you")),
+				shortName: getShortName(formData.get("you")),
+			},
+			partner: {
+				fullName: String(formData.get("partner")),
+				shortName: getShortName(formData.get("partner")),
+			},
+			front: {
+				fullName: String(formData.get("front")),
+				shortName: getShortName(formData.get("front")),
+			},
+			right: {
+				fullName: String(formData.get("right")),
+				shortName: getShortName(formData.get("right")),
+			},
 		});
 	};
 
 	return (
 		<div className={styles.container}>
-			<form action={formAction}>
+			<form
+				action={(formData) => {
+					setGameData(formData);
+					if (config) navigate("/round");
+				}}
+			>
 				<div className={styles.inputs}>
 					<input name="you" placeholder="You" />
 					<input name="partner" placeholder="Partner" />

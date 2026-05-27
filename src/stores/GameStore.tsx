@@ -11,10 +11,22 @@ const defaultConfigs: GameConfig = {
 	id: "random",
 	locale: "en",
 	players: {
-		you: "",
-		partner: "",
-		right: "",
-		front: "",
+		you: {
+			fullName: "",
+			shortName: "",
+		},
+		partner: {
+			fullName: "",
+			shortName: "",
+		},
+		right: {
+			fullName: "",
+			shortName: "",
+		},
+		front: {
+			fullName: "",
+			shortName: "",
+		},
 	},
 	isTotska: false,
 };
