@@ -16,7 +16,5 @@ export interface GameConfig {
 export type GameContextType = {
 	config: GameConfig;
 	setLanguage: (locale: localeUnionTypes) => void;
-	setPlayersName: (players: GameConfig["players"]) => void;
-	setIsTotska: (isTotska: boolean) => void;
-	setGameState: (gameState: GameConfig["gameState"]) => void;
+	initializeGame: (formData: FormData) => void;
 };
