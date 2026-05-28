@@ -1,22 +1,46 @@
 import React, { useEffect } from "react";
-import { type GameConfig, type localeUnionTypes } from "../types";
+import {
+	type GameConfig,
+	type GameState,
+	type localeUnionTypes,
+} from "../types";
 import { GameContext } from "./GameStore";
 import { getShortName } from "../helper/common";
 
-const LOCAL_STORAGE_CONFIG_STRING = "GameConfig";
+const LOCAL_STORAGE_CONFIG = "GameConfig";
+const LOCAL_STORAGE_GAMESTATE = "GameState";
+
+const defaultConfig: GameConfig = {
+	id: "random",
+	locale: "en",
+	teams: [],
+	isTotska: false,
+};
+
+const defaultState: GameState = {
+	points: {},
+	gameProgress: "notStarted",
+	round: 1,
+};
 
 export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 	const [config, setConfig] = React.useState<GameConfig>(() => {
-		const saved = localStorage.getItem(LOCAL_STORAGE_CONFIG_STRING);
+		const saved = localStorage.getItem(LOCAL_STORAGE_CONFIG);
 
-		return saved ? JSON.parse(saved) : null;
+		return saved ? JSON.parse(saved) : defaultConfig;
+	});
+	const [gameState, setGameState] = React.useState<GameState>(() => {
+		const saved = localStorage.getItem(LOCAL_STORAGE_GAMESTATE);
+
+		return saved ? JSON.parse(saved) : defaultState;
 	});
 
 	useEffect(() => {
-		if (config !== null)
-			localStorage.setItem(LOCAL_STORAGE_CONFIG_STRING, JSON.stringify(config));
-		console.log(config);
-	}, [config]);
+		if (config !== defaultConfig)
+			localStorage.setItem(LOCAL_STORAGE_CONFIG, JSON.stringify(config));
+		if (gameState !== defaultState)
+			localStorage.setItem(LOCAL_STORAGE_GAMESTATE, JSON.stringify(gameState));
+	}, [config, gameState]);
 
 	const setLanguage = (locale: localeUnionTypes) => {
 		setConfig((prev) => ({ ...prev, locale: locale }));
@@ -36,7 +60,6 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 							shortName:
 								getShortName(formData.get("you")) +
 								getShortName(formData.get("partner")),
-							points: 0,
 						},
 						{
 							fullName:
@@ -46,13 +69,27 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 							shortName:
 								getShortName(formData.get("front")) +
 								getShortName(formData.get("right")),
-							points: 0,
 						},
 					],
 					isTotska: formData.get("isTotska") === "on",
-					gameState: "inProgress",
 				} satisfies GameConfig)
 		);
+	};
+
+	const nextRound = (gameState: GameState) => {
+		setGameState((prev) => ({
+			...prev,
+			points: gameState.points,
+			round: gameState.round,
+			gameProgress: gameState.gameProgress,
+		}));
+	};
+
+	const setPoints = (points: GameState["points"]) => {
+		setGameState((prev) => ({
+			...prev,
+			points: points,
+		}));
 	};
 
 	return (
@@ -61,6 +98,9 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 				config,
 				setLanguage,
 				initializeGame,
+				nextRound,
+				gameState,
+				setPoints,
 			}}
 		>
 			{children}
