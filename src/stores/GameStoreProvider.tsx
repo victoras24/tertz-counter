@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { type GameConfig, type localeUnionTypes } from "../types";
 import { GameContext } from "./GameStore";
 import { getShortName } from "../helper/common";
 
-const defaultConfigs: GameConfig = {
-	id: "random",
-	locale: "en",
-	teams: [],
-	isTotska: false,
-	gameState: "notStarted",
-	round: 1,
-};
+const LOCAL_STORAGE_CONFIG_STRING = "GameConfig";
 
 export function GameStoreProvider({ children }: { children: React.ReactNode }) {
-	const [config, setConfig] = React.useState<GameConfig>(defaultConfigs);
+	const [config, setConfig] = React.useState<GameConfig>(() => {
+		const saved = localStorage.getItem(LOCAL_STORAGE_CONFIG_STRING);
+
+		return saved ? JSON.parse(saved) : null;
+	});
+
+	useEffect(() => {
+		if (config !== null)
+			localStorage.setItem(LOCAL_STORAGE_CONFIG_STRING, JSON.stringify(config));
+		console.log(config);
+	}, [config]);
 
 	const setLanguage = (locale: localeUnionTypes) => {
 		setConfig((prev) => ({ ...prev, locale: locale }));
@@ -29,7 +32,7 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 							fullName:
 								String(formData.get("you")) +
 								"&" +
-								String(formData.get("Partner")),
+								String(formData.get("partner")),
 							shortName:
 								getShortName(formData.get("you")) +
 								getShortName(formData.get("partner")),
@@ -46,7 +49,7 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 							points: 0,
 						},
 					],
-					isTotska: Boolean(formData.get("isTotska")),
+					isTotska: formData.get("isTotska") === "on",
 					gameState: "inProgress",
 				} satisfies GameConfig)
 		);
