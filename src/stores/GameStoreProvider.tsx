@@ -3,12 +3,14 @@ import {
 	type GameConfig,
 	type GameState,
 	type localeUnionTypes,
+	type RoundState,
 } from "../types";
 import { GameContext } from "./GameStore";
 import { getShortName } from "../helper/common";
 
 const LOCAL_STORAGE_CONFIG = "GameConfig";
 const LOCAL_STORAGE_GAMESTATE = "GameState";
+const LOCAL_STORAGE_ROUNDSTATE = "RoundState";
 
 const defaultConfig: GameConfig = {
 	id: "random",
@@ -31,7 +33,10 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 	});
 	const [gameState, setGameState] = React.useState<GameState>(() => {
 		const saved = localStorage.getItem(LOCAL_STORAGE_GAMESTATE);
-
+		return saved ? JSON.parse(saved) : defaultState;
+	});
+	const [roundState, setRoundState] = React.useState<RoundState>(() => {
+		const saved = localStorage.getItem(LOCAL_STORAGE_ROUNDSTATE);
 		return saved ? JSON.parse(saved) : defaultState;
 	});
 
@@ -40,7 +45,12 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 			localStorage.setItem(LOCAL_STORAGE_CONFIG, JSON.stringify(config));
 		if (gameState !== defaultState)
 			localStorage.setItem(LOCAL_STORAGE_GAMESTATE, JSON.stringify(gameState));
-	}, [config, gameState]);
+		if (roundState !== defaultState)
+			localStorage.setItem(
+				LOCAL_STORAGE_ROUNDSTATE,
+				JSON.stringify(roundState)
+			);
+	}, [config, gameState, roundState]);
 
 	const setLanguage = (locale: localeUnionTypes) => {
 		setConfig((prev) => ({ ...prev, locale: locale }));
@@ -80,15 +90,32 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 		setGameState((prev) => ({
 			...prev,
 			points: gameState.points,
-			round: gameState.round,
+			round: prev.round + 1,
 			gameProgress: gameState.gameProgress,
 		}));
 	};
 
-	const setPoints = (points: GameState["points"]) => {
+	const setGamePoints = (points: GameState["points"]) => {
 		setGameState((prev) => ({
 			...prev,
 			points: points,
+		}));
+	};
+
+	const setRoundPoints = (points: RoundState["points"]) => {
+		setRoundState((prev) => ({
+			...prev,
+			points: points,
+		}));
+	};
+
+	const setPointsByTeamShortName = (teamShortName: string, points: number) => {
+		setRoundState((prev) => ({
+			...prev,
+			points: {
+				...prev.points,
+				[teamShortName]: prev.points[teamShortName] + points,
+			},
 		}));
 	};
 
@@ -100,7 +127,10 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 				initializeGame,
 				nextRound,
 				gameState,
-				setPoints,
+				setGamePoints,
+				setRoundPoints,
+				setPointsByTeamShortName,
+				roundState,
 			}}
 		>
 			{children}

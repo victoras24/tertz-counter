@@ -2,10 +2,18 @@ import { useEffect } from "react";
 import { useGameStore } from "../../stores/GameStore";
 import type { GameState } from "../../types";
 import styles from "./RoundEntry.module.css";
+import { declarations } from "../../helper/configs";
 
 export const RoundEntry: React.FC = () => {
-	const { config, gameState, setPoints } = useGameStore();
-
+	const {
+		config,
+		gameState,
+		setGamePoints,
+		setPointsByTeamShortName,
+		setRoundPoints,
+		roundState,
+	} = useGameStore();
+	console.log(gameState);
 	useEffect(() => {
 		if (gameState.round === 1) {
 			const points: GameState["points"] = config.teams.reduce<
@@ -15,13 +23,14 @@ export const RoundEntry: React.FC = () => {
 				return acc;
 			}, {});
 
-			setPoints(points);
+			setRoundPoints(points);
+			setGamePoints(points);
 		}
-	}, [config.teams, gameState.round, setPoints]);
+	}, [config.teams, gameState.round, setGamePoints, setRoundPoints]);
 
 	const score = config.teams.map((team) => ({
 		team,
-		points: gameState.points?.[team.shortName] ?? 0,
+		points: roundState.points?.[team.shortName] ?? 0,
 	}));
 
 	return (
@@ -30,16 +39,42 @@ export const RoundEntry: React.FC = () => {
 				<h1>Round {gameState.round}</h1>
 			</div>
 			<div className={styles["round-info"]}>
-				{score.map((e) => {
-					return (
-						<div>
-							<h5>{e.team.shortName}</h5>
-							<h2>{e.points}</h2>
-						</div>
-					);
-				})}
+				{score.map((e) => (
+					<div key={e.team.shortName}>
+						<h5>{e.team.shortName}</h5>
+						<h2>{e.points}</h2>
+					</div>
+				))}
 			</div>
-			<button>Add points</button>
+			<div className={styles["round-info"]}>
+				{score.map((e) => (
+					<div>
+						<input placeholder={e.team.shortName} name={e.team.shortName} />
+					</div>
+				))}
+			</div>
+			<div className={styles["declarations-container"]}>
+				{declarations.map((d) => (
+					<div className={styles["declaration"]}>
+						<button className={styles["declaration-name"]}>{d.name}</button>
+						<div>
+							{score.map((e) => (
+								<div className={styles["declaration-team-name-container"]}>
+									<button
+										className={styles["declaration-team-name"]}
+										onClick={() =>
+											setPointsByTeamShortName(e.team.shortName, d.points)
+										}
+									>
+										{e.team.shortName}
+									</button>
+								</div>
+							))}
+						</div>
+					</div>
+				))}
+			</div>
+			<button>Next round</button>
 		</div>
 	);
 };

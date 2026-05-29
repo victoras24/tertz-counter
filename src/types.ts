@@ -13,6 +13,8 @@ export interface GameState {
 	round: number;
 }
 
+export type RoundState = GameState;
+
 type Teams = {
 	fullName: string;
 	shortName: string;
@@ -24,5 +26,16 @@ export type GameContextType = {
 	initializeGame: (formData: FormData) => void;
 	nextRound: (gameState: GameState) => void;
 	gameState: GameState;
-	setPoints: (points: GameState["points"]) => void;
+	setGamePoints: (points: GameState["points"]) => void;
+	setRoundPoints: (points: RoundState["points"]) => void;
+	setPointsByTeamShortName: (teamShortName: string, points: number) => void;
+	roundState: RoundState;
 };
+
+export type Declarations = "tertz" | "palto" | "bella";
+
+export type DeclarationConfig = {
+	name: Declarations;
+	points: number;
+	useLimit: number;
+}[];

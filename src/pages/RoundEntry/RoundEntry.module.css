@@ -11,3 +11,27 @@ h5 {
 p {
 	margin: 0;
 }
+
+.declarations-container {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+}
+
+.declaration {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+}
+
+.declaration-name {
+	flex: 1;
+}
+
+.declaration-team-name-container {
+	display: flex;
+}
+
+.declaration-team-name {
+	flex: 1;
+}
