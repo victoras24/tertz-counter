@@ -15,7 +15,7 @@ export interface GameState {
 
 export type RoundState = GameState;
 
-type Teams = {
+export type Teams = {
 	fullName: string;
 	shortName: string;
 };
