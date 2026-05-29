@@ -28,7 +28,6 @@ const defaultState: GameState = {
 export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 	const [config, setConfig] = React.useState<GameConfig>(() => {
 		const saved = localStorage.getItem(LOCAL_STORAGE_CONFIG);
-
 		return saved ? JSON.parse(saved) : defaultConfig;
 	});
 	const [gameState, setGameState] = React.useState<GameState>(() => {

@@ -1,32 +1,11 @@
-import { useEffect } from "react";
 import { useGameStore } from "../../stores/GameStore";
-import type { GameState } from "../../types";
 import styles from "./RoundEntry.module.css";
 import { declarations } from "../../helper/configs";
 
 export const RoundEntry: React.FC = () => {
-	const {
-		config,
-		gameState,
-		setGamePoints,
-		setPointsByTeamShortName,
-		setRoundPoints,
-		roundState,
-	} = useGameStore();
+	const { config, gameState, setPointsByTeamShortName, roundState } =
+		useGameStore();
 	console.log(gameState);
-	useEffect(() => {
-		if (gameState.round === 1) {
-			const points: GameState["points"] = config.teams.reduce<
-				GameState["points"]
-			>((acc, team) => {
-				acc[team.shortName] = 0;
-				return acc;
-			}, {});
-
-			setRoundPoints(points);
-			setGamePoints(points);
-		}
-	}, [config.teams, gameState.round, setGamePoints, setRoundPoints]);
 
 	const score = config.teams.map((team) => ({
 		team,
