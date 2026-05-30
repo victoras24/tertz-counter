@@ -1,6 +1,9 @@
 import { useGameStore } from "../../stores/GameStore";
 import styles from "./RoundEntry.module.css";
 import { Declarations } from "./components/Declarations";
+import { RoundEntryBidedSuit } from "./components/modals/RoundEntryBidedSuitModal";
+import { RoundEntryBidedTeamModal } from "./components/modals/RoundEntryBidedTeamModal";
+import { RoundEntryDeclarationsModal } from "./components/modals/RoundEntryDeclarationsModal";
 
 export const RoundEntry: React.FC = () => {
 	const { config, gameState, roundState } = useGameStore();
@@ -13,6 +16,9 @@ export const RoundEntry: React.FC = () => {
 
 	return (
 		<div>
+			<RoundEntryBidedTeamModal teams={config.teams} />
+			<RoundEntryBidedSuit />
+			<RoundEntryDeclarationsModal teamsScore={teamsScore} />
 			<div>
 				<h1>Round {gameState.round}</h1>
 			</div>

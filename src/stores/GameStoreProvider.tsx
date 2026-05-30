@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import {
 	type GameConfig,
 	type GameState,
-	type localeUnionTypes,
+	type LocaleUnionTypes,
 	type RoundState,
 } from "../types";
 import { GameContext } from "./GameStore";
@@ -51,7 +51,7 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 			);
 	}, [config, gameState, roundState]);
 
-	const setLanguage = (locale: localeUnionTypes) => {
+	const setLanguage = (locale: LocaleUnionTypes) => {
 		setConfig((prev) => ({ ...prev, locale: locale }));
 	};
 

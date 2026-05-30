@@ -1,9 +1,10 @@
-import { declarations } from "../../../helper/configs";
-import { useGameStore } from "../../../stores/GameStore";
-import type { Teams } from "../../../types";
-import styles from "./Declarations.module.css";
+import { Modal } from "../../../../components/Modal/Modal";
+import { declarations } from "../../../../helper/configs";
+import { useGameStore } from "../../../../stores/GameStore";
+import type { Teams } from "../../../../types";
+import styles from "../Declarations.module.css";
 
-export const Declarations: React.FC<{
+export const RoundEntryDeclarationsModal: React.FC<{
 	teamsScore: {
 		team: Teams;
 		points: number;
@@ -11,20 +12,7 @@ export const Declarations: React.FC<{
 }> = ({ teamsScore }) => {
 	const { setPointsByTeamShortName } = useGameStore();
 	return (
-		<div className={styles["declarations-container"]}>
-			<div className={styles["point-declaration"]}>
-				{teamsScore.map((e) => (
-					<div key={e.team.shortName}>
-						<input
-							type="number"
-							inputMode="numeric"
-							pattern="[0-9]*"
-							placeholder={e.team.shortName}
-							name={e.team.shortName}
-						/>
-					</div>
-				))}
-			</div>
+		<Modal>
 			{declarations.map((d) => (
 				<div key={d.name} className={styles["declaration"]}>
 					<button className={styles["declaration-name"]}>{d.name}</button>
@@ -47,6 +35,6 @@ export const Declarations: React.FC<{
 					</div>
 				</div>
 			))}
-		</div>
+		</Modal>
 	);
 };

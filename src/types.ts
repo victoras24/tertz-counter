@@ -1,8 +1,9 @@
-export type localeUnionTypes = "el" | "en" | "ru";
+export type LocaleUnionTypes = "el" | "en" | "ru";
 
+export type Suits = "spades" | "hearts" | "diamonds" | "clubs";
 export interface GameConfig {
 	id: string;
-	locale: localeUnionTypes;
+	locale: LocaleUnionTypes;
 	teams: Teams[];
 	isTotska: boolean;
 }
@@ -13,7 +14,10 @@ export interface GameState {
 	round: number;
 }
 
-export type RoundState = GameState;
+export interface RoundState extends GameState {
+	bidedTeam: string;
+	bidedSuit: Suits;
+}
 
 export type Teams = {
 	fullName: string;
@@ -22,7 +26,7 @@ export type Teams = {
 
 export type GameContextType = {
 	config: GameConfig;
-	setLanguage: (locale: localeUnionTypes) => void;
+	setLanguage: (locale: LocaleUnionTypes) => void;
 	initializeGame: (formData: FormData) => void;
 	nextRound: (gameState: GameState) => void;
 	gameState: GameState;
