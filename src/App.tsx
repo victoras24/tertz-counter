@@ -1,14 +1,14 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import { Setup } from "./pages/Setup/Setup";
-import { RoundEntry } from "./pages/RoundEntry/RoundEntry";
+import { GameSetup } from "./pages/GameSetup/GameSetup";
+import { RoundSetup } from "./pages/RoundSetup/RoundSetup";
 
 function App() {
 	return (
 		<div className="app-shell">
 			<Routes>
-				<Route path="/" element={<Setup />} />
-				<Route path="/round" element={<RoundEntry />} />
+				<Route path="/" element={<GameSetup />} />
+				<Route path="/round" element={<RoundSetup />} />
 			</Routes>
 		</div>
 	);

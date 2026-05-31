@@ -1,8 +1,10 @@
 export type LocaleUnionTypes = "el" | "en" | "ru";
 
 export type Suits = "spades" | "hearts" | "diamonds" | "clubs";
+
+export type PlayerId = "you" | "partner" | "front" | "right";
+
 export interface GameConfig {
-	id: string;
 	locale: LocaleUnionTypes;
 	teams: Teams[];
 	isTotska: boolean;
@@ -11,7 +13,6 @@ export interface GameConfig {
 export interface GameState {
 	points: Record<string, number>;
 	gameProgress: "notStarted" | "inProgress" | "completed";
-	round: number;
 }
 
 export interface RoundState extends GameState {
@@ -20,14 +21,23 @@ export interface RoundState extends GameState {
 }
 
 export type Teams = {
-	fullName: string;
 	shortName: string;
+	players: Player[];
+	sessionPoints: number;
+	gamePoints: number;
+	roundPoints: number;
+};
+
+export type Player = {
+	id: PlayerId;
+	fullName: string;
+	teamName: Teams["shortName"];
 };
 
 export type GameContextType = {
 	config: GameConfig;
+	setConfig: (configState: GameConfig) => void;
 	setLanguage: (locale: LocaleUnionTypes) => void;
-	initializeGame: (formData: FormData) => void;
 	nextRound: (gameState: GameState) => void;
 	gameState: GameState;
 	setGamePoints: (points: GameState["points"]) => void;

@@ -6,7 +6,6 @@ import {
 	type RoundState,
 } from "../types";
 import { GameContext } from "./GameStore";
-import { getShortName } from "../helper/common";
 import { useInitialize } from "../hooks/useInitialization";
 
 const LS_GAME_CONFIG = "GameConfig";
@@ -14,7 +13,6 @@ const LS_GAME_STATE = "GameState";
 const LS_ROUND_STATE = "RoundState";
 
 const defaultConfig: GameConfig = {
-	id: "random",
 	locale: "en",
 	teams: [],
 	isTotska: false,
@@ -23,7 +21,6 @@ const defaultConfig: GameConfig = {
 const defaultState: GameState = {
 	points: {},
 	gameProgress: "notStarted",
-	round: 1,
 };
 
 export function GameStoreProvider({ children }: { children: React.ReactNode }) {
@@ -41,41 +38,10 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 		setConfig((prev) => ({ ...prev, locale: locale }));
 	};
 
-	const initializeGame = (formData: FormData) => {
-		setConfig(
-			(prev) =>
-				({
-					...prev,
-					teams: [
-						{
-							fullName:
-								String(formData.get("you")) +
-								"&" +
-								String(formData.get("partner")),
-							shortName:
-								getShortName(formData.get("you")) +
-								getShortName(formData.get("partner")),
-						},
-						{
-							fullName:
-								String(formData.get("front")) +
-								"&" +
-								String(formData.get("right")),
-							shortName:
-								getShortName(formData.get("front")) +
-								getShortName(formData.get("right")),
-						},
-					],
-					isTotska: formData.get("isTotska") === "on",
-				} satisfies GameConfig)
-		);
-	};
-
 	const nextRound = (gameState: GameState) => {
 		setGameState((prev) => ({
 			...prev,
 			points: gameState.points,
-			round: prev.round + 1,
 			gameProgress: gameState.gameProgress,
 		}));
 	};
@@ -108,8 +74,8 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 		<GameContext.Provider
 			value={{
 				config,
+				setConfig,
 				setLanguage,
-				initializeGame,
 				nextRound,
 				gameState,
 				setGamePoints,

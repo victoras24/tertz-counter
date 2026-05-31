@@ -3,16 +3,16 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import { GameStoreProvider } from "./stores/GameStoreProvider.tsx";
-import { Setup } from "./pages/Setup/Setup.tsx";
-import { RoundEntry } from "./pages/RoundEntry/RoundEntry.tsx";
+import { GameSetup } from "./pages/GameSetup/GameSetup.tsx";
+import { RoundSetup } from "./pages/RoundSetup/RoundSetup.tsx";
 
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
 		<BrowserRouter>
 			<GameStoreProvider>
 				<Routes>
-					<Route path="/" element={<Setup />} />
-					<Route path="/round" element={<RoundEntry />} />
+					<Route path="/" element={<GameSetup />} />
+					<Route path="/round" element={<RoundSetup />} />
 				</Routes>
 			</GameStoreProvider>
 		</BrowserRouter>
