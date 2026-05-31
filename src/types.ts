@@ -6,7 +6,7 @@ export type PlayerId = "you" | "partner" | "front" | "right";
 
 export interface GameConfig {
 	locale: LocaleUnionTypes;
-	teams: Teams[];
+	teams: Team[];
 	isTotska: boolean;
 }
 
@@ -20,7 +20,7 @@ export interface RoundState extends GameState {
 	bidedSuit: Suits;
 }
 
-export type Teams = {
+export type Team = {
 	shortName: string;
 	players: Player[];
 	sessionPoints: number;
@@ -31,7 +31,7 @@ export type Teams = {
 export type Player = {
 	id: PlayerId;
 	fullName: string;
-	teamName: Teams["shortName"];
+	teamName: Team["shortName"];
 };
 
 export type GameContextType = {
@@ -44,6 +44,10 @@ export type GameContextType = {
 	setRoundPoints: (points: RoundState["points"]) => void;
 	setPointsByTeamShortName: (teamShortName: string, points: number) => void;
 	roundState: RoundState;
+	bidedSuit: string;
+	setBidedSuit: (suit: Suits) => void;
+	bidedTeam: Team["shortName"];
+	setBidedTeam: (team: string) => void;
 };
 
 export type Declarations = "tertz" | "palto" | "bella";

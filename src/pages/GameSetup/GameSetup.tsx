@@ -50,7 +50,7 @@ export const GameSetup = () => {
 			<form
 				action={(formData) => {
 					initializeGame(formData);
-					navigate("/round");
+					navigate("/bid");
 				}}
 			>
 				<div className={styles.inputs}>

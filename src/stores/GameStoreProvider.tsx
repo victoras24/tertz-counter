@@ -4,6 +4,7 @@ import {
 	type GameState,
 	type LocaleUnionTypes,
 	type RoundState,
+	type Suits,
 } from "../types";
 import { GameContext } from "./GameStore";
 import { useInitialize } from "../hooks/useInitialization";
@@ -24,18 +25,23 @@ const defaultState: GameState = {
 };
 
 export function GameStoreProvider({ children }: { children: React.ReactNode }) {
-	const { config, setConfig } = useInitialize(LS_GAME_CONFIG, defaultConfig);
-	const { config: gameState, setConfig: setGameState } = useInitialize(
+	const { state: gameConfig, setState: setGameConfig } = useInitialize(
+		LS_GAME_CONFIG,
+		defaultConfig
+	);
+	const { state: gameState, setState: setGameState } = useInitialize(
 		LS_GAME_STATE,
 		defaultConfig
 	);
-	const { config: roundState, setConfig: setRoundState } = useInitialize(
+	const { state: roundState, setState: setRoundState } = useInitialize(
 		LS_ROUND_STATE,
 		defaultState
 	);
+	const [bidedTeam, setBidedTeam] = React.useState("");
+	const [bidedSuit, setBidedSuit] = React.useState<Suits | "">("");
 
 	const setLanguage = (locale: LocaleUnionTypes) => {
-		setConfig((prev) => ({ ...prev, locale: locale }));
+		setGameConfig((prev) => ({ ...prev, locale: locale }));
 	};
 
 	const nextRound = (gameState: GameState) => {
@@ -73,8 +79,8 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 	return (
 		<GameContext.Provider
 			value={{
-				config,
-				setConfig,
+				config: gameConfig,
+				setConfig: setGameConfig,
 				setLanguage,
 				nextRound,
 				gameState,
@@ -82,6 +88,10 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 				setRoundPoints,
 				setPointsByTeamShortName,
 				roundState,
+				bidedSuit,
+				setBidedSuit,
+				bidedTeam,
+				setBidedTeam,
 			}}
 		>
 			{children}

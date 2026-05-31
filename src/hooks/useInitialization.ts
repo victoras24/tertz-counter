@@ -5,7 +5,7 @@ export const useInitialize = (
 	localStorageKey: string,
 	defaultConfig: unknown
 ) => {
-	const [config, setConfig] = React.useState(
+	const [state, setState] = React.useState(
 		getConfigFromLocalStorageIfEmptyReturnDefaultConfig(
 			localStorageKey,
 			defaultConfig
@@ -13,9 +13,9 @@ export const useInitialize = (
 	);
 
 	React.useEffect(() => {
-		if (config !== defaultConfig)
-			localStorage.setItem(localStorageKey, JSON.stringify(config));
-	}, [defaultConfig, config, localStorageKey]);
+		if (state !== defaultConfig)
+			localStorage.setItem(localStorageKey, JSON.stringify(state));
+	}, [defaultConfig, state, localStorageKey]);
 
-	return { config, setConfig };
+	return { state, setState };
 };

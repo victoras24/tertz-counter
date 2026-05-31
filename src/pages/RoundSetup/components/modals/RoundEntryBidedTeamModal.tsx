@@ -1,7 +1,7 @@
 import { Modal } from "../../../../components/Modal/Modal";
-import type { Teams } from "../../../../types";
+import type { Team } from "../../../../types";
 
-export const RoundEntryBidedTeamModal: React.FC<{ teams: Teams[] }> = ({
+export const RoundEntryBidedTeamModal: React.FC<{ teams: Team[] }> = ({
 	teams,
 }) => {
 	return (

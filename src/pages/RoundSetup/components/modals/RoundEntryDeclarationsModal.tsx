@@ -1,12 +1,12 @@
 import { Modal } from "../../../../components/Modal/Modal";
 import { declarations } from "../../../../helper/configs";
 import { useGameStore } from "../../../../stores/GameStore";
-import type { Teams } from "../../../../types";
+import type { Team } from "../../../../types";
 import styles from "../Declarations.module.css";
 
 export const RoundEntryDeclarationsModal: React.FC<{
 	teamsScore: {
-		team: Teams;
+		team: Team;
 		points: number;
 	}[];
 }> = ({ teamsScore }) => {
