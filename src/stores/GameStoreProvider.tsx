@@ -15,7 +15,7 @@ const LS_ROUND_STATE = "RoundState";
 
 const defaultConfig: GameConfig = {
 	locale: "en",
-	teams: [],
+	teams: {},
 	isTotska: false,
 };
 
@@ -29,19 +29,22 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 		LS_GAME_CONFIG,
 		defaultConfig
 	);
+
 	const { state: gameState, setState: setGameState } = useInitialize(
 		LS_GAME_STATE,
-		defaultConfig
-	);
-	const { state: roundState, setState: setRoundState } = useInitialize(
-		LS_ROUND_STATE,
 		defaultState
 	);
+
+	const { state: roundState, setState: setRoundState } = useInitialize(
+		LS_ROUND_STATE,
+		{} as RoundState
+	);
+
 	const [bidedTeam, setBidedTeam] = React.useState("");
 	const [bidedSuit, setBidedSuit] = React.useState<Suits | "">("");
 
 	const setLanguage = (locale: LocaleUnionTypes) => {
-		setGameConfig((prev) => ({ ...prev, locale: locale }));
+		setGameConfig((prev) => ({ ...prev, locale }));
 	};
 
 	const nextRound = (gameState: GameState) => {
@@ -55,23 +58,23 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 	const setGamePoints = (points: GameState["points"]) => {
 		setGameState((prev) => ({
 			...prev,
-			points: points,
+			points,
 		}));
 	};
 
 	const setRoundPoints = (points: RoundState["points"]) => {
 		setRoundState((prev) => ({
 			...prev,
-			points: points,
+			points,
 		}));
 	};
 
 	const setPointsByTeamShortName = (teamShortName: string, points: number) => {
-		setRoundState((prev) => ({
+		setGameConfig((prev) => ({
 			...prev,
-			points: {
-				...prev.points,
-				[teamShortName]: prev.points[teamShortName] + points,
+			teams: {
+				...prev.teams,
+				[teamShortName]: prev.teams[teamShortName] + points,
 			},
 		}));
 	};
@@ -79,8 +82,8 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 	return (
 		<GameContext.Provider
 			value={{
-				config: gameConfig,
-				setConfig: setGameConfig,
+				gameConfig,
+				setGameConfig,
 				setLanguage,
 				nextRound,
 				gameState,

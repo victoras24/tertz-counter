@@ -1,48 +1,36 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./GameSetup.module.css";
 import { useGameStore } from "../../stores/GameStore";
-import type { GameConfig, PlayerId } from "../../types";
+import type { GameConfig, Player, PlayerId } from "../../types";
 import { getShortName } from "../../helper/common";
 
 export const GameSetup = () => {
 	const navigate = useNavigate();
-	const { setConfig } = useGameStore();
+	const { setGameConfig } = useGameStore();
 
 	const initializeGame = (formData: FormData) => {
-		const players = [];
+		const players: Player[] = [];
 
 		formData.forEach((data, key: PlayerId) =>
-			players.push({ id: key, fullName: String(data), teamName: "" })
+			players.push({ id: key, fullName: String(data) })
 		);
 
-		const locale = formData.get("isTotska") === "on" ? true : false;
+		players.pop();
+
+		const isTotska = formData.get("isTotska") === "on" ? true : false;
+
+		const team1 =
+			getShortName(players[0].fullName) + getShortName(players[1].fullName);
+		const team2 =
+			getShortName(players[2].fullName) + getShortName(players[3].fullName);
 
 		const gameConfig: GameConfig = {
-			teams: [
-				{
-					shortName:
-						getShortName(players[0].fullName) +
-						getShortName(players[1].fullName),
-					players: [players[0], players[1]],
-					sessionPoints: 0,
-					gamePoints: 0,
-					roundPoints: 0,
-				},
-				{
-					shortName:
-						getShortName(players[2].fullName) +
-						getShortName(players[3].fullName),
-					players: [players[2], players[3]],
-					sessionPoints: 0,
-					gamePoints: 0,
-					roundPoints: 0,
-				},
-			],
+			teams: { [team1]: 0, [team2]: 0 },
 			locale: "en",
-			isTotska: locale,
+			isTotska: isTotska,
 		};
-
-		setConfig(gameConfig);
+		console.log(gameConfig);
+		setGameConfig(gameConfig);
 	};
 
 	return (

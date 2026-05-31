@@ -2,20 +2,20 @@ import type { GameConfig } from "../../../types";
 
 interface TeamsProps {
 	config: GameConfig;
-	setTeam: (name: string) => void;
+	setTeam: (string: string) => void;
 }
 
 export const Teams: React.FC<TeamsProps> = ({ config, setTeam }) => {
 	return (
 		<>
-			{config.teams.map((team) => (
+			{Object.keys(config.teams).map((team) => (
 				<button
-					key={team.shortName}
+					key={team}
 					onClick={() => {
-						setTeam(team.shortName);
+						setTeam(team);
 					}}
 				>
-					{team.shortName}
+					{team}
 				</button>
 			))}
 		</>
