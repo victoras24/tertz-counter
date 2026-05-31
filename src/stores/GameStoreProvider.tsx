@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
 	type GameConfig,
 	type GameState,
@@ -7,10 +7,11 @@ import {
 } from "../types";
 import { GameContext } from "./GameStore";
 import { getShortName } from "../helper/common";
+import { useInitialize } from "../hooks/useInitialization";
 
-const LOCAL_STORAGE_CONFIG = "GameConfig";
-const LOCAL_STORAGE_GAMESTATE = "GameState";
-const LOCAL_STORAGE_ROUNDSTATE = "RoundState";
+const LS_GAME_CONFIG = "GameConfig";
+const LS_GAME_STATE = "GameState";
+const LS_ROUND_STATE = "RoundState";
 
 const defaultConfig: GameConfig = {
 	id: "random",
@@ -26,30 +27,15 @@ const defaultState: GameState = {
 };
 
 export function GameStoreProvider({ children }: { children: React.ReactNode }) {
-	const [config, setConfig] = React.useState<GameConfig>(() => {
-		const saved = localStorage.getItem(LOCAL_STORAGE_CONFIG);
-		return saved ? JSON.parse(saved) : defaultConfig;
-	});
-	const [gameState, setGameState] = React.useState<GameState>(() => {
-		const saved = localStorage.getItem(LOCAL_STORAGE_GAMESTATE);
-		return saved ? JSON.parse(saved) : defaultState;
-	});
-	const [roundState, setRoundState] = React.useState<RoundState>(() => {
-		const saved = localStorage.getItem(LOCAL_STORAGE_ROUNDSTATE);
-		return saved ? JSON.parse(saved) : defaultState;
-	});
-
-	useEffect(() => {
-		if (config !== defaultConfig)
-			localStorage.setItem(LOCAL_STORAGE_CONFIG, JSON.stringify(config));
-		if (gameState !== defaultState)
-			localStorage.setItem(LOCAL_STORAGE_GAMESTATE, JSON.stringify(gameState));
-		if (roundState !== defaultState)
-			localStorage.setItem(
-				LOCAL_STORAGE_ROUNDSTATE,
-				JSON.stringify(roundState)
-			);
-	}, [config, gameState, roundState]);
+	const { config, setConfig } = useInitialize(LS_GAME_CONFIG, defaultConfig);
+	const { config: gameState, setConfig: setGameState } = useInitialize(
+		LS_GAME_STATE,
+		defaultConfig
+	);
+	const { config: roundState, setConfig: setRoundState } = useInitialize(
+		LS_ROUND_STATE,
+		defaultState
+	);
 
 	const setLanguage = (locale: LocaleUnionTypes) => {
 		setConfig((prev) => ({ ...prev, locale: locale }));
