@@ -4,6 +4,7 @@ import {
 	type GameState,
 	type LocaleUnionTypes,
 	type RoundState,
+	type SectionPoints,
 	type Suits,
 } from "../types";
 import { GameContext } from "./GameStore";
@@ -65,13 +66,23 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 		}));
 	};
 
-	const setPointsByTeamShortName = (teamShortName: string, points: number) => {
+	const setPointsByTeamShortName = (
+		teamShortName: string,
+		points: number,
+		sectionPoints: SectionPoints
+	) => {
 		setGameConfig((prev) => ({
 			...prev,
 			teams: [
 				...prev.teams.map((prevTeam) => {
 					if (prevTeam.shortName === teamShortName) {
-						return { ...prevTeam, gamePoints: prevTeam.gamePoints + points };
+						return {
+							...prevTeam,
+							score: {
+								...prevTeam.score,
+								[sectionPoints]: prevTeam.score[sectionPoints] + points,
+							},
+						};
 					} else {
 						return prevTeam;
 					}

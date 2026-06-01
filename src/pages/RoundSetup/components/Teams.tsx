@@ -8,7 +8,6 @@ interface TeamsProps {
 
 export const Teams: React.FC<TeamsProps> = ({ config, setTeam }) => {
 	const { setGameConfig } = useGameStore();
-	console.log(config);
 
 	return (
 		<>
@@ -23,7 +22,7 @@ export const Teams: React.FC<TeamsProps> = ({ config, setTeam }) => {
 									...prev.teams.map((prevTem) => {
 										return {
 											shortName: prevTem.shortName,
-											gamePoints: 0,
+											score: { ...prevTem.score, roundPoints: 0 },
 										};
 									}),
 								],

@@ -26,8 +26,14 @@ export const GameSetup = () => {
 
 		const gameConfig: GameConfig = {
 			teams: [
-				{ shortName: team1, gamePoints: 0 },
-				{ shortName: team2, gamePoints: 0 },
+				{
+					shortName: team1,
+					score: { sessionPoints: 0, gamePoints: 0, roundPoints: 0 },
+				},
+				{
+					shortName: team2,
+					score: { sessionPoints: 0, gamePoints: 0, roundPoints: 0 },
+				},
 			],
 			locale: "en",
 			isTotska: isTotska,

@@ -22,8 +22,16 @@ export interface RoundState extends GameState {
 
 export type Team = {
 	shortName: string;
-	gamePoints: number;
+	score: Score;
 };
+
+export type Score = {
+	sessionPoints: number;
+	gamePoints: number;
+	roundPoints: number;
+};
+
+export type SectionPoints = keyof Score;
 
 export type Player = {
 	id: PlayerId;
@@ -38,7 +46,11 @@ export type GameContextType = {
 	gameState: GameState;
 	setGamePoints: React.Dispatch<React.SetStateAction<GameState["points"]>>;
 	setRoundPoints: React.Dispatch<React.SetStateAction<RoundState["points"]>>;
-	setPointsByTeamShortName: (teamShortName: string, points: number) => void;
+	setPointsByTeamShortName: (
+		teamShortName: string,
+		points: number,
+		sectionPoints: SectionPoints
+	) => void;
 	roundState: RoundState;
 	bidedSuit: string;
 	setBidedSuit: React.Dispatch<React.SetStateAction<Suits>>;

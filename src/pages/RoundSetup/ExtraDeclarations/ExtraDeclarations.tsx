@@ -11,7 +11,11 @@ export const ExtraDeclarations: React.FC = () => {
 			<Teams config={gameConfig} setTeam={setBidedTeam} />
 			{declarations.map((d) => (
 				<div key={d.name}>
-					<button onClick={() => setPointsByTeamShortName(bidedTeam, d.points)}>
+					<button
+						onClick={() =>
+							setPointsByTeamShortName(bidedTeam, d.points, "roundPoints")
+						}
+					>
 						{d.name}
 					</button>
 				</div>
