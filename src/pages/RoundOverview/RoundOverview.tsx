@@ -14,49 +14,18 @@ export const RoundOverview: React.FC = () => {
 						type="number"
 						max={999}
 						onChange={(e) => {
-							if (input && input.toString.length > e.target.value.length) {
-								setPointsByTeamShortName(
-									team.shortName,
-									input,
-									"roundPoints",
-									"minus"
-								);
-								setPointsByTeamShortName(
-									team.shortName,
-									Number(e.target.value),
-									"roundPoints",
-									"add"
-								);
-							} else if (
-								input &&
-								input.toString.length < e.target.value.length
-							) {
-								setPointsByTeamShortName(
-									team.shortName,
-									input,
-									"roundPoints",
-									"minus"
-								);
-								setPointsByTeamShortName(
-									team.shortName,
-									Number(e.target.value),
-									"roundPoints",
-									"add"
-								);
-							} else {
-								setPointsByTeamShortName(
-									team.shortName,
-									input,
-									"roundPoints",
-									"minus"
-								);
-								setPointsByTeamShortName(
-									team.shortName,
-									Number(e.target.value),
-									"roundPoints",
-									"add"
-								);
-							}
+							setPointsByTeamShortName(
+								team.shortName,
+								input,
+								"roundPoints",
+								"minus"
+							);
+							setPointsByTeamShortName(
+								team.shortName,
+								Number(e.target.value),
+								"roundPoints",
+								"add"
+							);
 							setInput(+e.target.value);
 						}}
 						name={team.shortName}
