@@ -7,8 +7,14 @@ import type { Suits } from "../../../types";
 const suitsArray = ["spades", "hearts", "diamonds", "clubs"];
 
 export const BidedTeamAndSuit: React.FC = () => {
-	const { gameConfig, bidedSuit, bidedTeam, setBidedSuit, setBidedTeam } =
-		useGameStore();
+	const {
+		gameConfig,
+		bidedSuit,
+		bidedTeam,
+		setBidedSuit,
+		setBidedTeam,
+		setGameConfig,
+	} = useGameStore();
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -17,7 +23,11 @@ export const BidedTeamAndSuit: React.FC = () => {
 
 	return (
 		<div>
-			<Teams config={gameConfig} setTeam={setBidedTeam} />
+			<Teams
+				config={gameConfig}
+				setTeam={setBidedTeam}
+				setGameConfig={setGameConfig}
+			/>
 			{suitsArray.map((suit: Suits) => (
 				<button key={suit} onClick={() => setBidedSuit(suit)}>
 					{suit}

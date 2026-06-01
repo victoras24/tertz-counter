@@ -41,19 +41,20 @@ export type Player = {
 export type GameContextType = {
 	gameConfig: GameConfig;
 	setGameConfig: React.Dispatch<React.SetStateAction<GameConfig>>;
-	setLanguage: React.Dispatch<React.SetStateAction<LocaleUnionTypes>>;
+	setLanguage: (locale: LocaleUnionTypes) => void;
 	nextRound: (gameState: GameState) => void;
 	gameState: GameState;
-	setGamePoints: React.Dispatch<React.SetStateAction<GameState["points"]>>;
-	setRoundPoints: React.Dispatch<React.SetStateAction<RoundState["points"]>>;
+	setGamePoints: (points: GameState["points"]) => void;
+	setRoundPoints: (points: RoundState["points"]) => void;
 	setPointsByTeamShortName: (
 		teamShortName: string,
 		points: number,
-		sectionPoints: SectionPoints
+		sectionPoints: SectionPoints,
+		action: "add" | "minus"
 	) => void;
 	roundState: RoundState;
 	bidedSuit: string;
-	setBidedSuit: React.Dispatch<React.SetStateAction<Suits>>;
+	setBidedSuit: React.Dispatch<React.SetStateAction<"" | Suits>>;
 	bidedTeam: string;
 	setBidedTeam: React.Dispatch<React.SetStateAction<string>>;
 };

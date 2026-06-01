@@ -1,18 +1,21 @@
-import { useGameStore } from "../../../stores/GameStore";
 import type { GameConfig, Team } from "../../../types";
 
 interface TeamsProps {
 	config: GameConfig;
-	setTeam: (string: string) => void;
+	setTeam: React.Dispatch<React.SetStateAction<string>>;
+	setGameConfig: React.Dispatch<React.SetStateAction<GameConfig>>;
 }
 
-export const Teams: React.FC<TeamsProps> = ({ config, setTeam }) => {
-	const { setGameConfig } = useGameStore();
-
+export const Teams: React.FC<TeamsProps> = ({
+	config,
+	setTeam,
+	setGameConfig,
+}) => {
 	return (
-		<>
+		<div>
 			{config.teams.map((team: Team) => (
 				<div>
+					<p>{team.score.roundPoints}</p>
 					<button
 						key={team.shortName}
 						onClick={() => {
@@ -34,6 +37,6 @@ export const Teams: React.FC<TeamsProps> = ({ config, setTeam }) => {
 					</button>
 				</div>
 			))}
-		</>
+		</div>
 	);
 };

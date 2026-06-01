@@ -69,7 +69,8 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 	const setPointsByTeamShortName = (
 		teamShortName: string,
 		points: number,
-		sectionPoints: SectionPoints
+		sectionPoints: SectionPoints,
+		action: "add" | "minus"
 	) => {
 		setGameConfig((prev) => ({
 			...prev,
@@ -80,7 +81,10 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 							...prevTeam,
 							score: {
 								...prevTeam.score,
-								[sectionPoints]: prevTeam.score[sectionPoints] + points,
+								[sectionPoints]:
+									action === "add"
+										? prevTeam.score[sectionPoints] + points
+										: prevTeam.score[sectionPoints] - points,
 							},
 						};
 					} else {
