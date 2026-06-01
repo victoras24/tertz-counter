@@ -15,7 +15,7 @@ export const GameSetup = () => {
 			players.push({ id: key, fullName: String(data) })
 		);
 
-		players.pop();
+		if (players.length === 5) players.pop();
 
 		const isTotska = formData.get("isTotska") === "on" ? true : false;
 
@@ -25,7 +25,10 @@ export const GameSetup = () => {
 			getShortName(players[2].fullName) + getShortName(players[3].fullName);
 
 		const gameConfig: GameConfig = {
-			teams: { [team1]: 0, [team2]: 0 },
+			teams: [
+				{ shortName: team1, gamePoints: 0 },
+				{ shortName: team2, gamePoints: 0 },
+			],
 			locale: "en",
 			isTotska: isTotska,
 		};

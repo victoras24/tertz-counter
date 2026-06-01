@@ -1,21 +1,19 @@
 import React from "react";
 import { getConfigFromLocalStorageIfEmptyReturnDefaultConfig } from "../helper/common";
 
-export const useInitialize = (
-	localStorageKey: string,
-	defaultConfig: unknown
-) => {
-	const [state, setState] = React.useState(
+export const useInitialize = <T>(localStorageKey: string, defaultValue: T) => {
+	const [state, setState] = React.useState<T>(
 		getConfigFromLocalStorageIfEmptyReturnDefaultConfig(
 			localStorageKey,
-			defaultConfig
-		)
+			defaultValue
+		) as T
 	);
 
 	React.useEffect(() => {
-		if (state !== defaultConfig)
+		if (state !== defaultValue) {
 			localStorage.setItem(localStorageKey, JSON.stringify(state));
-	}, [defaultConfig, state, localStorageKey]);
+		}
+	}, [state, localStorageKey, defaultValue]);
 
 	return { state, setState };
 };
