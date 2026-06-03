@@ -2,12 +2,11 @@ export type LocaleUnionTypes = "el" | "en" | "ru";
 
 export type Suits = "spades" | "hearts" | "diamonds" | "clubs";
 
-export type PlayerId = "you" | "partner" | "front" | "right";
-
 export interface GameConfig {
 	locale: LocaleUnionTypes;
 	teams: Team[];
 	isTotska: boolean;
+	maxRoundPoints: number;
 }
 
 export interface GameState {
@@ -29,12 +28,13 @@ export type Score = {
 	sessionPoints: number;
 	gamePoints: number;
 	roundPoints: number;
+	roundDeclarations: number;
 };
 
 export type SectionPoints = keyof Score;
 
 export type Player = {
-	id: PlayerId;
+	id: string;
 	fullName: string;
 };
 
@@ -54,7 +54,7 @@ export type GameContextType = {
 	) => void;
 	roundState: RoundState;
 	bidedSuit: string;
-	setBidedSuit: React.Dispatch<React.SetStateAction<"" | Suits>>;
+	setBidedSuit: (bid: string) => void;
 	bidedTeam: string;
 	setBidedTeam: React.Dispatch<React.SetStateAction<string>>;
 };

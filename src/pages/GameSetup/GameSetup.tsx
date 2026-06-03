@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./GameSetup.module.css";
 import { useGameStore } from "../../stores/GameStore";
-import type { GameConfig, Player, PlayerId } from "../../types";
+import type { GameConfig, Player } from "../../types";
 import { getShortName } from "../../helper/common";
 
 export const GameSetup = () => {
@@ -11,7 +11,7 @@ export const GameSetup = () => {
 	const initializeGame = (formData: FormData) => {
 		const players: Player[] = [];
 
-		formData.forEach((data, key: PlayerId) =>
+		formData.forEach((data: FormDataEntryValue, key: string) =>
 			players.push({ id: key, fullName: String(data) })
 		);
 
@@ -28,17 +28,28 @@ export const GameSetup = () => {
 			teams: [
 				{
 					shortName: team1,
-					score: { sessionPoints: 0, gamePoints: 0, roundPoints: 0 },
+					score: {
+						sessionPoints: 0,
+						gamePoints: 0,
+						roundPoints: 0,
+						roundDeclarations: 0,
+					},
 				},
 				{
 					shortName: team2,
-					score: { sessionPoints: 0, gamePoints: 0, roundPoints: 0 },
+					score: {
+						sessionPoints: 0,
+						gamePoints: 0,
+						roundPoints: 0,
+						roundDeclarations: 0,
+					},
 				},
 			],
 			locale: "en",
 			isTotska: isTotska,
+			maxRoundPoints: 160,
 		};
-		console.log(gameConfig);
+
 		setGameConfig(gameConfig);
 	};
 

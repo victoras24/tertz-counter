@@ -14,13 +14,14 @@ export const Teams: React.FC<TeamsProps> = ({
 	return (
 		<div>
 			{config.teams.map((team: Team) => (
-				<div>
+				<div key={team.shortName}>
 					<p>{team.score.roundPoints}</p>
 					<button
 						key={team.shortName}
 						onClick={() => {
 							setGameConfig((prev) => ({
 								...prev,
+								maxRoundPoints: 160,
 								teams: [
 									...prev.teams.map((prevTem) => {
 										return {

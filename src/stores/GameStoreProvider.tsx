@@ -5,10 +5,9 @@ import {
 	type LocaleUnionTypes,
 	type RoundState,
 	type SectionPoints,
-	type Suits,
 } from "../types";
 import { GameContext } from "./GameStore";
-import { useInitialize } from "../hooks/useInitialization";
+import { useLocalStorageSync } from "../hooks/useInitialization";
 
 const LS_GAME_CONFIG = "GameConfig";
 const LS_GAME_STATE = "GameState";
@@ -18,6 +17,7 @@ const defaultConfig: GameConfig = {
 	locale: "en",
 	teams: [],
 	isTotska: false,
+	maxRoundPoints: 160,
 };
 
 const defaultState: GameState = {
@@ -27,18 +27,16 @@ const defaultState: GameState = {
 
 export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 	const { state: gameConfig, setState: setGameConfig } =
-		useInitialize<GameConfig>(LS_GAME_CONFIG, defaultConfig);
+		useLocalStorageSync<GameConfig>(LS_GAME_CONFIG, defaultConfig);
 
-	const { state: gameState, setState: setGameState } = useInitialize<GameState>(
-		LS_GAME_STATE,
-		defaultState
-	);
+	const { state: gameState, setState: setGameState } =
+		useLocalStorageSync<GameState>(LS_GAME_STATE, defaultState);
 
 	const { state: roundState, setState: setRoundState } =
-		useInitialize<RoundState>(LS_ROUND_STATE, {} as RoundState);
+		useLocalStorageSync<RoundState>(LS_ROUND_STATE, {} as RoundState);
 
 	const [bidedTeam, setBidedTeam] = React.useState("");
-	const [bidedSuit, setBidedSuit] = React.useState<Suits | "">("");
+	const [bidedSuit, setBidedSuit] = React.useState("");
 
 	const setLanguage = (locale: LocaleUnionTypes) => {
 		setGameConfig((prev) => ({ ...prev, locale }));

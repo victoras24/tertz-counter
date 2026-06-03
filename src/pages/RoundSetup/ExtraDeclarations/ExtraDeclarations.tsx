@@ -23,20 +23,48 @@ export const ExtraDeclarations: React.FC = () => {
 			{declarations.map((d) => (
 				<div key={d.name}>
 					<button
-						onClick={() =>
+						onClick={() => {
 							setPointsByTeamShortName(
 								bidedTeam,
 								d.points,
 								"roundPoints",
 								"add"
-							)
-						}
+							);
+							setGameConfig((prev) => ({
+								...prev,
+								maxRoundPoints: prev.maxRoundPoints + d.points,
+							}));
+						}}
 					>
 						{d.name}
 					</button>
 				</div>
 			))}
-			<button onClick={() => navigate("/round-overview")}>Next</button>
+			<button
+				onClick={() => {
+					navigate("/round-overview");
+					setGameConfig((prev) => ({
+						...prev,
+						teams: [
+							...prev.teams.map((prevTeam) => {
+								if (prevTeam.shortName === bidedTeam) {
+									return {
+										...prevTeam,
+										score: {
+											...prevTeam.score,
+											roundDeclarations: prev.maxRoundPoints - 160,
+										},
+									};
+								} else {
+									return prevTeam;
+								}
+							}),
+						],
+					}));
+				}}
+			>
+				Next
+			</button>
 		</div>
 	);
 };

@@ -1,7 +1,10 @@
 import React from "react";
 import { getConfigFromLocalStorageIfEmptyReturnDefaultConfig } from "../helper/common";
 
-export const useInitialize = <T>(localStorageKey: string, defaultValue: T) => {
+export const useLocalStorageSync = <T>(
+	localStorageKey: string,
+	defaultValue: T
+) => {
 	const [state, setState] = React.useState<T>(
 		getConfigFromLocalStorageIfEmptyReturnDefaultConfig(
 			localStorageKey,
