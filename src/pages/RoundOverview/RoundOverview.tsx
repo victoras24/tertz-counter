@@ -4,7 +4,7 @@ import { usePointDeclarationInputChange } from "./usePointDeclarationInputChange
 
 export const RoundOverview: React.FC = () => {
 	const { gameConfig } = useGameStore();
-	const { handleChange, validations } = usePointDeclarationInputChange();
+	const { handleChange, validations, input } = usePointDeclarationInputChange();
 
 	return (
 		<div>
@@ -12,7 +12,7 @@ export const RoundOverview: React.FC = () => {
 				<div key={team.shortName}>
 					<label
 						htmlFor={team.shortName}
-						style={teamStyle(gameConfig.maxRoundPoints, team)}
+						style={teamStyle(gameConfig.maxRoundPoints, team, input)}
 					>
 						{team.shortName}
 					</label>

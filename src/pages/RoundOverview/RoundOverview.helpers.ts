@@ -13,9 +13,14 @@ export const inputStyle = (
 
 export const teamStyle = (
 	maxRoundPoints: number,
-	team: Team
+	team: Team,
+	input: number
 ): CSSProperties | undefined => {
-	if (team.isRoundBided && team.score.roundPoints < maxRoundPoints / 2) {
+	if (
+		input > 0 &&
+		team.isRoundBided &&
+		team.score.roundPoints < maxRoundPoints / 2
+	) {
 		return {
 			color: "red",
 		};
