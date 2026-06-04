@@ -1,10 +1,15 @@
 import React from "react";
 import { useGameStore } from "../../stores/GameStore";
 import type { Team } from "../../types";
+import type { Validations } from "./RoundOverview.types";
 
 export const usePointDeclarationInputChange = () => {
-	const { setPointsByTeamShortName, setGameConfig } = useGameStore();
+	const { setPointsByTeamShortName, setGameConfig, gameConfig } =
+		useGameStore();
 	const [input, setInput] = React.useState<number>(0);
+	const [validations, setValidations] = React.useState<Validations>({
+		isInputExceededMaxRoundPoints: false,
+	});
 
 	// reset inputs when game refresh
 	React.useEffect(() => {
@@ -23,6 +28,15 @@ export const usePointDeclarationInputChange = () => {
 			],
 		}));
 	}, [setGameConfig]);
+
+	const validationChecks = (
+		event: React.ChangeEvent<HTMLInputElement, HTMLInputElement>
+	) => {
+		setValidations({
+			isInputExceededMaxRoundPoints:
+				Number(event.target.value) > gameConfig.maxRoundPoints,
+		});
+	};
 
 	const resetPoints = () => {
 		setInput(0);
@@ -102,7 +116,9 @@ export const usePointDeclarationInputChange = () => {
 		setInput(Number(event.target.value));
 
 		handleOtherTeamInputChange(event, team);
+
+		validationChecks(event);
 	};
 
-	return { input, handleChange };
+	return { input, validations, handleChange };
 };

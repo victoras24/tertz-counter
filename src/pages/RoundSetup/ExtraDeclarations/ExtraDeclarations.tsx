@@ -4,20 +4,15 @@ import { useGameStore } from "../../../stores/GameStore";
 import { Teams } from "../components/Teams";
 
 export const ExtraDeclarations: React.FC = () => {
-	const {
-		gameConfig,
-		setBidedTeam,
-		bidedTeam,
-		setPointsByTeamShortName,
-		setGameConfig,
-	} = useGameStore();
+	const { gameConfig, setBidedTeam, setPointsByTeamShortName, setGameConfig } =
+		useGameStore();
 	const navigate = useNavigate();
 
 	return (
 		<div>
 			<Teams
 				config={gameConfig}
-				setTeam={setBidedTeam}
+				setTeam={(bidedTeam) => setBidedTeam(bidedTeam)}
 				setGameConfig={setGameConfig}
 			/>
 			{declarations.map((d) => (
@@ -25,7 +20,7 @@ export const ExtraDeclarations: React.FC = () => {
 					<button
 						onClick={() => {
 							setPointsByTeamShortName(
-								bidedTeam,
+								gameConfig.bidedTeam,
 								d.points,
 								"roundPoints",
 								"add"
@@ -47,7 +42,7 @@ export const ExtraDeclarations: React.FC = () => {
 						...prev,
 						teams: [
 							...prev.teams.map((prevTeam) => {
-								if (prevTeam.shortName === bidedTeam) {
+								if (prevTeam.shortName === gameConfig.bidedTeam) {
 									return {
 										...prevTeam,
 										score: {

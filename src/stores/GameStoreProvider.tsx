@@ -3,6 +3,7 @@ import {
 	type GameConfig,
 	type LocaleUnionTypes,
 	type SectionPoints,
+	type Team,
 } from "../types";
 import { GameContext } from "./GameStore";
 import { useLocalStorageSync } from "../hooks/useLocalStorageSync";
@@ -14,16 +15,48 @@ const defaultConfig: GameConfig = {
 	teams: [],
 	isTotska: false,
 	maxRoundPoints: 160,
+	bidedTeam: "",
 };
 
 export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 	const { state: gameConfig, setState: setGameConfig } =
 		useLocalStorageSync<GameConfig>(LS_GAME_CONFIG, defaultConfig);
-	const [bidedTeam, setBidedTeam] = React.useState("");
 	const [bidedSuit, setBidedSuit] = React.useState("");
 
+	// getters
+	const getTeamPointsByTeamShortName = (teamShortName: string) => {
+		console.log(teamShortName);
+		const teamObj = gameConfig.teams.find(
+			(team) => team.shortName === teamShortName
+		);
+		console.log(teamObj?.score.roundPoints);
+		return teamObj?.score.roundPoints;
+	};
+
+	// setters
 	const setLanguage = (locale: LocaleUnionTypes) => {
 		setGameConfig((prev) => ({ ...prev, locale }));
+	};
+
+	const setBidedTeam = (bidedTeam: string) => {
+		setGameConfig((prev) => ({
+			...prev,
+			bidedTeam: bidedTeam,
+			teams: [
+				...prev.teams.map((prevTeam: Team) => {
+					if (prevTeam.shortName === bidedTeam) {
+						return {
+							...prevTeam,
+							isRoundBided: true,
+						};
+					}
+					return {
+						...prevTeam,
+						isRoundBided: false,
+					};
+				}),
+			],
+		}));
 	};
 
 	const setPointsByTeamShortName = (
@@ -64,8 +97,8 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 				setPointsByTeamShortName,
 				bidedSuit,
 				setBidedSuit,
-				bidedTeam,
 				setBidedTeam,
+				getTeamPointsByTeamShortName,
 			}}
 		>
 			{children}

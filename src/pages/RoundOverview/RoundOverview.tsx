@@ -1,16 +1,23 @@
 import { useGameStore } from "../../stores/GameStore";
+import { inputStyle, teamStyle } from "./RoundOverview.helpers";
 import { usePointDeclarationInputChange } from "./usePointDeclarationInputChange";
 
 export const RoundOverview: React.FC = () => {
 	const { gameConfig } = useGameStore();
-	const { handleChange } = usePointDeclarationInputChange();
+	const { handleChange, validations } = usePointDeclarationInputChange();
 
 	return (
 		<div>
 			{gameConfig.teams.map((team) => (
 				<div key={team.shortName}>
-					<label htmlFor={team.shortName}>{team.shortName}</label>
+					<label
+						htmlFor={team.shortName}
+						style={teamStyle(gameConfig.maxRoundPoints, team)}
+					>
+						{team.shortName}
+					</label>
 					<input
+						style={inputStyle(validations.isInputExceededMaxRoundPoints)}
 						type="number"
 						onChange={(event) => handleChange(event, team)}
 						name={team.shortName}

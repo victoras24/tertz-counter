@@ -2,7 +2,7 @@ import type { GameConfig, Team } from "../../../types";
 
 interface TeamsProps {
 	config: GameConfig;
-	setTeam: React.Dispatch<React.SetStateAction<string>>;
+	setTeam: (bidedTeam: string) => void;
 	setGameConfig: React.Dispatch<React.SetStateAction<GameConfig>>;
 }
 
@@ -23,8 +23,9 @@ export const Teams: React.FC<TeamsProps> = ({
 								...prev,
 								maxRoundPoints: 160,
 								teams: [
-									...prev.teams.map((prevTem) => {
+									...prev.teams.map((prevTem: Team) => {
 										return {
+											...prevTem,
 											shortName: prevTem.shortName,
 											score: { ...prevTem.score, roundPoints: 0 },
 										};

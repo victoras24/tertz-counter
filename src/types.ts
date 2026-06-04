@@ -7,6 +7,7 @@ export interface GameConfig {
 	teams: Team[];
 	isTotska: boolean;
 	maxRoundPoints: number;
+	bidedTeam: string;
 }
 
 export interface GameState {
@@ -22,6 +23,7 @@ export interface RoundState extends GameState {
 export type Team = {
 	shortName: string;
 	score: Score;
+	isRoundBided: boolean;
 };
 
 export type Score = {
@@ -50,8 +52,8 @@ export type GameContextType = {
 	) => void;
 	bidedSuit: string;
 	setBidedSuit: (bid: string) => void;
-	bidedTeam: string;
-	setBidedTeam: React.Dispatch<React.SetStateAction<string>>;
+	setBidedTeam: (bidedTeam: string) => void;
+	getTeamPointsByTeamShortName: (teamShortName: string) => number | undefined;
 };
 
 export type Declarations = "tertz" | "palto" | "bella";
