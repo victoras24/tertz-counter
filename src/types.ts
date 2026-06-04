@@ -42,17 +42,12 @@ export type GameContextType = {
 	gameConfig: GameConfig;
 	setGameConfig: React.Dispatch<React.SetStateAction<GameConfig>>;
 	setLanguage: (locale: LocaleUnionTypes) => void;
-	nextRound: (gameState: GameState) => void;
-	gameState: GameState;
-	setGamePoints: (points: GameState["points"]) => void;
-	setRoundPoints: (points: RoundState["points"]) => void;
 	setPointsByTeamShortName: (
 		teamShortName: string,
 		points: number,
 		sectionPoints: SectionPoints,
 		action: "add" | "minus"
 	) => void;
-	roundState: RoundState;
 	bidedSuit: string;
 	setBidedSuit: (bid: string) => void;
 	bidedTeam: string;

@@ -1,17 +1,13 @@
 import React from "react";
 import {
 	type GameConfig,
-	type GameState,
 	type LocaleUnionTypes,
-	type RoundState,
 	type SectionPoints,
 } from "../types";
 import { GameContext } from "./GameStore";
-import { useLocalStorageSync } from "../hooks/useInitialization";
+import { useLocalStorageSync } from "../hooks/useLocalStorageSync";
 
 const LS_GAME_CONFIG = "GameConfig";
-const LS_GAME_STATE = "GameState";
-const LS_ROUND_STATE = "RoundState";
 
 const defaultConfig: GameConfig = {
 	locale: "en",
@@ -20,48 +16,15 @@ const defaultConfig: GameConfig = {
 	maxRoundPoints: 160,
 };
 
-const defaultState: GameState = {
-	points: {},
-	gameProgress: "notStarted",
-};
-
 export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 	const { state: gameConfig, setState: setGameConfig } =
 		useLocalStorageSync<GameConfig>(LS_GAME_CONFIG, defaultConfig);
-
-	const { state: gameState, setState: setGameState } =
-		useLocalStorageSync<GameState>(LS_GAME_STATE, defaultState);
-
-	const { state: roundState, setState: setRoundState } =
-		useLocalStorageSync<RoundState>(LS_ROUND_STATE, {} as RoundState);
 
 	const [bidedTeam, setBidedTeam] = React.useState("");
 	const [bidedSuit, setBidedSuit] = React.useState("");
 
 	const setLanguage = (locale: LocaleUnionTypes) => {
 		setGameConfig((prev) => ({ ...prev, locale }));
-	};
-
-	const nextRound = (gameState: GameState) => {
-		setGameState((prev) => ({
-			...prev,
-			points: gameState.points,
-			gameProgress: gameState.gameProgress,
-		}));
-	};
-
-	const setGamePoints = (points: GameState["points"]) => {
-		setGameState((prev) => ({
-			...prev,
-			points,
-		}));
-	};
-
-	const setRoundPoints = (points: RoundState["points"]) => {
-		setRoundState((prev) => ({
-			...prev,
-			points,
-		}));
 	};
 
 	const setPointsByTeamShortName = (
@@ -99,12 +62,7 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 				gameConfig,
 				setGameConfig,
 				setLanguage,
-				nextRound,
-				gameState,
-				setGamePoints,
-				setRoundPoints,
 				setPointsByTeamShortName,
-				roundState,
 				bidedSuit,
 				setBidedSuit,
 				bidedTeam,

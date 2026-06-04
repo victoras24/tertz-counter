@@ -1,57 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./GameSetup.module.css";
-import { useGameStore } from "../../stores/GameStore";
-import type { GameConfig, Player } from "../../types";
-import { getShortName } from "../../helper/common";
+import { useInitializeGame } from "../../hooks/useInitializeGame";
 
 export const GameSetup = () => {
 	const navigate = useNavigate();
-	const { setGameConfig } = useGameStore();
-
-	const initializeGame = (formData: FormData) => {
-		const players: Player[] = [];
-
-		formData.forEach((data: FormDataEntryValue, key: string) =>
-			players.push({ id: key, fullName: String(data) })
-		);
-
-		if (players.length === 5) players.pop();
-
-		const isTotska = formData.get("isTotska") === "on" ? true : false;
-
-		const team1 =
-			getShortName(players[0].fullName) + getShortName(players[1].fullName);
-		const team2 =
-			getShortName(players[2].fullName) + getShortName(players[3].fullName);
-
-		const gameConfig: GameConfig = {
-			teams: [
-				{
-					shortName: team1,
-					score: {
-						sessionPoints: 0,
-						gamePoints: 0,
-						roundPoints: 0,
-						roundDeclarations: 0,
-					},
-				},
-				{
-					shortName: team2,
-					score: {
-						sessionPoints: 0,
-						gamePoints: 0,
-						roundPoints: 0,
-						roundDeclarations: 0,
-					},
-				},
-			],
-			locale: "en",
-			isTotska: isTotska,
-			maxRoundPoints: 160,
-		};
-
-		setGameConfig(gameConfig);
-	};
+	const { initializeGame } = useInitializeGame();
 
 	return (
 		<div className={styles.container}>
