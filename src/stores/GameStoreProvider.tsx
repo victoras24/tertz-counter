@@ -19,7 +19,6 @@ const defaultConfig: GameConfig = {
 export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 	const { state: gameConfig, setState: setGameConfig } =
 		useLocalStorageSync<GameConfig>(LS_GAME_CONFIG, defaultConfig);
-
 	const [bidedTeam, setBidedTeam] = React.useState("");
 	const [bidedSuit, setBidedSuit] = React.useState("");
 

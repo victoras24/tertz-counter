@@ -77,3 +77,4 @@ export default defineConfig([
 # tertz-counter
 
 - Implement bolt functionality.
+- Disable input when exceeding the max round points.
