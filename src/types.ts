@@ -3,7 +3,6 @@ export type LocaleUnionTypes = "el" | "en" | "ru";
 export type Suits = "spades" | "hearts" | "diamonds" | "clubs";
 
 export interface GameConfig {
-	locale: LocaleUnionTypes;
 	teams: Team[];
 	isTotska: boolean;
 	maxRoundPoints: number;

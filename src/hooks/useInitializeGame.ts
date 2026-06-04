@@ -23,6 +23,7 @@ export const useInitializeGame = () => {
 			teams: [
 				{
 					shortName: team1,
+					isRoundBided: false,
 					score: {
 						sessionPoints: 0,
 						gamePoints: 0,
@@ -32,6 +33,7 @@ export const useInitializeGame = () => {
 				},
 				{
 					shortName: team2,
+					isRoundBided: false,
 					score: {
 						sessionPoints: 0,
 						gamePoints: 0,
@@ -40,7 +42,7 @@ export const useInitializeGame = () => {
 					},
 				},
 			],
-			locale: "en",
+			bidedTeam: "",
 			isTotska: isTotska,
 			maxRoundPoints: 160,
 		};

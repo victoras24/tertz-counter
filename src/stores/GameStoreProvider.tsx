@@ -11,7 +11,6 @@ import { useLocalStorageSync } from "../hooks/useLocalStorageSync";
 const LS_GAME_CONFIG = "GameConfig";
 
 const defaultConfig: GameConfig = {
-	locale: "en",
 	teams: [],
 	isTotska: false,
 	maxRoundPoints: 160,
