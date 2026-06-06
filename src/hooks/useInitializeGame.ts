@@ -43,8 +43,10 @@ export const useInitializeGame = () => {
 				},
 			],
 			bidedTeam: "",
+			bidedSuit: "spades",
 			isTotska: isTotska,
 			maxRoundPoints: 160,
+			gameHistory: [],
 		};
 
 		setGameConfig(gameConfig);

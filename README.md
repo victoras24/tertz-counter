@@ -78,6 +78,7 @@ export default defineConfig([
 
 [-] Implement bolt functionality.
 [-] Disable input when exceeding the max round points. (style change instead of disabling)
+[-] End round and start next one.
 
-- End round and start next one.
 - Implement declaration limits.
+- Create designs.

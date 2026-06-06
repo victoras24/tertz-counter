@@ -3,10 +3,12 @@ import {
 	type GameConfig,
 	type LocaleUnionTypes,
 	type SectionPoints,
+	type Suit,
 	type Team,
 } from "../types";
 import { GameContext } from "./GameStore";
 import { useLocalStorageSync } from "../hooks/useLocalStorageSync";
+import { useNavigate } from "react-router-dom";
 
 const LS_GAME_CONFIG = "GameConfig";
 
@@ -15,12 +17,14 @@ const defaultConfig: GameConfig = {
 	isTotska: false,
 	maxRoundPoints: 160,
 	bidedTeam: "",
+	bidedSuit: "spades",
+	gameHistory: [],
 };
 
 export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 	const { state: gameConfig, setState: setGameConfig } =
 		useLocalStorageSync<GameConfig>(LS_GAME_CONFIG, defaultConfig);
-	const [bidedSuit, setBidedSuit] = React.useState("");
+	const navigate = useNavigate();
 
 	// getters
 	const getTeamPointsByTeamShortName = (teamShortName: string) => {
@@ -35,6 +39,13 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 	// setters
 	const setLanguage = (locale: LocaleUnionTypes) => {
 		setGameConfig((prev) => ({ ...prev, locale }));
+	};
+
+	const setBidedSuit = (suit: Suit) => {
+		setGameConfig((prev) => ({
+			...prev,
+			bidedSuit: suit,
+		}));
 	};
 
 	const setBidedTeam = (bidedTeam: string) => {
@@ -87,6 +98,84 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 		}));
 	};
 
+	const resetRound = () => {
+		setGameConfig((prev) => ({
+			...prev,
+			bidedTeam: "",
+			bidedSuit: "spades",
+			maxRoundPoints: 0,
+			teams: [
+				...prev.teams.map((prevTeam) => ({
+					...prevTeam,
+					score: {
+						...prevTeam.score,
+						roundDeclarations: 0,
+						roundPoints: 0,
+						gamePoints: prevTeam.score.gamePoints + prevTeam.score.roundPoints,
+					},
+				})),
+			],
+		}));
+	};
+
+	const isMaxRoundPointsExceeded = (teams: Team[]) => {
+		return teams.some((team) => team.score.gamePoints >= 1010);
+	};
+
+	const setSessionPoint = () => {
+		const gameWinner = gameConfig.teams.reduce((best, team) =>
+			team.score.gamePoints > best.score.gamePoints ? team : best
+		);
+		console.log(gameWinner);
+		setGameConfig((prev) => ({
+			...prev,
+			teams: [
+				...prev.teams.map((prevTeam) => {
+					if (prevTeam.shortName === gameWinner.shortName) {
+						return {
+							...prevTeam,
+							score: {
+								...prevTeam.score,
+								gamePoints: 0,
+								sessionPoints: prevTeam.score.sessionPoints + 1,
+							},
+						};
+					} else {
+						return {
+							...prevTeam,
+							score: {
+								...prevTeam.score,
+								gamePoints: 0,
+							},
+						};
+					}
+				}),
+			],
+		}));
+	};
+
+	const nextRound = () => {
+		let gameHistory = {};
+
+		for (const team of gameConfig.teams) {
+			gameHistory = {
+				...gameHistory,
+				[team.shortName]: team.score.roundPoints,
+			};
+		}
+
+		setGameConfig((prev) => ({
+			...prev,
+			gameHistory: [...prev.gameHistory, gameHistory],
+		}));
+
+		resetRound();
+		console.log(isMaxRoundPointsExceeded(gameConfig.teams));
+		if (isMaxRoundPointsExceeded(gameConfig.teams)) setSessionPoint();
+
+		navigate("/bid");
+	};
+
 	return (
 		<GameContext.Provider
 			value={{
@@ -94,10 +183,10 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 				setGameConfig,
 				setLanguage,
 				setPointsByTeamShortName,
-				bidedSuit,
 				setBidedSuit,
 				setBidedTeam,
 				getTeamPointsByTeamShortName,
+				nextRound,
 			}}
 		>
 			{children}

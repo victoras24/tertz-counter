@@ -3,7 +3,7 @@ import { inputStyle, teamStyle } from "./RoundOverview.helpers";
 import { usePointDeclarationInputChange } from "./usePointDeclarationInputChange";
 
 export const RoundOverview: React.FC = () => {
-	const { gameConfig } = useGameStore();
+	const { gameConfig, nextRound } = useGameStore();
 	const { handleChange, validations, input } = usePointDeclarationInputChange();
 
 	return (
@@ -25,6 +25,7 @@ export const RoundOverview: React.FC = () => {
 					<p>{team.score.roundPoints}</p>
 				</div>
 			))}
+			<button onClick={() => nextRound(0)}>Next round</button>
 		</div>
 	);
 };

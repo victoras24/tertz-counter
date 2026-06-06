@@ -2,18 +2,19 @@ import React, { useEffect } from "react";
 import { useGameStore } from "../../../stores/GameStore";
 import { useNavigate } from "react-router-dom";
 import { Teams } from "../components/Teams";
+import type { Suit } from "../../../types";
 
-const suitsArray = ["spades", "hearts", "diamonds", "clubs"];
+const suitsArray: Suit[] = ["spades", "hearts", "diamonds", "clubs"];
 
 export const BidedTeamAndSuit: React.FC = () => {
-	const { gameConfig, bidedSuit, setBidedSuit, setBidedTeam, setGameConfig } =
+	const { gameConfig, setBidedSuit, setBidedTeam, setGameConfig } =
 		useGameStore();
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (bidedSuit !== "" && gameConfig.bidedTeam !== "")
+		if (gameConfig.bidedSuit && gameConfig.bidedTeam !== "")
 			navigate("/extra-declarations");
-	}, [gameConfig.bidedTeam, bidedSuit, navigate]);
+	}, [gameConfig.bidedSuit, gameConfig.bidedTeam, navigate]);
 
 	return (
 		<div>
@@ -22,7 +23,7 @@ export const BidedTeamAndSuit: React.FC = () => {
 				setTeam={(bidedTeam) => setBidedTeam(bidedTeam)}
 				setGameConfig={setGameConfig}
 			/>
-			{suitsArray.map((suit: string) => (
+			{suitsArray.map((suit: Suit) => (
 				<button key={suit} onClick={() => setBidedSuit(suit)}>
 					{suit}
 				</button>
