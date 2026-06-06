@@ -9,7 +9,7 @@ export const Table: React.FC = () => {
 			<Seat text={"you"} position={"you"} />
 			<Seat text={"ally"} position={"left-top"} />
 			<Seat text={"enemy"} position={"left-bottom"} />
-			<Seat text={"enemy"} position={"right"} />
+			<Seat text={"enemy"} position={"right-top"} />
 		</div>
 	);
 };
@@ -21,7 +21,6 @@ const Seat: React.FC<{ text: string; position: string }> = ({
 	return (
 		<div className={`seat seat-${position}`}>
 			<div className={`seat-avatar avatar-${text}`}>?</div>
-			<span className={`seat-name name-${text}`}>{text}</span>
 		</div>
 	);
 };
