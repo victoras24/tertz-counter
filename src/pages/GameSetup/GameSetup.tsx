@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./GameSetup.module.css";
 import { useInitializeGame } from "../../hooks/useInitializeGame";
+import { Table } from "../../components/table";
 
 export const GameSetup = () => {
 	const navigate = useNavigate();
@@ -8,6 +9,7 @@ export const GameSetup = () => {
 
 	return (
 		<div className={styles.container}>
+			<Table />
 			<form
 				action={(formData) => {
 					initializeGame(formData);
