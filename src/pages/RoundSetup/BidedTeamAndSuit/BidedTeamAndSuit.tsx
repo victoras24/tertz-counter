@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useGameStore } from "../../../stores/GameStore";
 import { useNavigate } from "react-router-dom";
 import { Teams } from "../components/Teams";
@@ -11,16 +11,15 @@ export const BidedTeamAndSuit: React.FC = () => {
 		useGameStore();
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		if (gameConfig.bidedSuit && gameConfig.bidedTeam !== "")
-			navigate("/extra-declarations");
-	}, [gameConfig.bidedSuit, gameConfig.bidedTeam, navigate]);
-
 	return (
 		<div>
+			<button onClick={() => navigate("/")}>Back button</button>
 			<Teams
 				config={gameConfig}
-				setTeam={(bidedTeam) => setBidedTeam(bidedTeam)}
+				setTeam={(bidedTeam) => {
+					setBidedTeam(bidedTeam);
+					navigate("/extra-declarations");
+				}}
 				setGameConfig={setGameConfig}
 			/>
 			{suitsArray.map((suit: Suit) => (

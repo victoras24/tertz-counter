@@ -10,6 +10,14 @@ export const ExtraDeclarations: React.FC = () => {
 
 	return (
 		<div>
+			<button
+				onClick={() => {
+					console.log("click");
+					navigate("/bid");
+				}}
+			>
+				Back button
+			</button>
 			<Teams
 				config={gameConfig}
 				setTeam={(bidedTeam) => setBidedTeam(bidedTeam)}
