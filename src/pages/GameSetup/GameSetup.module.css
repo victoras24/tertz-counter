@@ -1,14 +1,38 @@
 .container {
-	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	min-height: 100dvh;
+	padding: var(--space-lg);
+	padding-bottom: calc(80px + env(safe-area-inset-bottom));
+}
+
+form {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	flex: 1;
 }
 
 .inputs {
 	display: flex;
 	flex-direction: column;
-	gap: 1rem;
+	flex: 1;
+	gap: var(--space-lg);
+}
+
+.spacer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex: 1;
 }
 
 .checkbox {
 	display: flex;
 	align-items: center;
+}
+
+.team {
+	display: flex;
+	gap: 1rem;
 }

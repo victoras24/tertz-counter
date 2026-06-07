@@ -1,0 +1,42 @@
+.input {
+	width: 100%;
+	background: #16162a;
+	border: 1px solid #2a2a50;
+	border-left-width: 3px;
+	border-radius: var(--radius-md);
+	padding: 10px var(--space-md);
+	font-size: 14px;
+	font-family: var(--font-body);
+	color: var(--text-primary);
+	outline: none;
+	transition: border-color 0.2s, background 0.2s;
+}
+
+.input:focus {
+	background: #1a1a32;
+	border-color: #3a3a60;
+}
+
+.input::placeholder {
+	color: var(--text-faint);
+}
+
+.input--blue {
+	border-color: #2a4a80;
+	border-left-color: var(--team-blue);
+}
+
+.input--blue:focus {
+	border-color: #3a5a90;
+	border-left-color: var(--team-blue);
+}
+
+.input--red {
+	border-color: #5a2020;
+	border-left-color: var(--team-red);
+}
+
+.input--red:focus {
+	border-color: #6a3030;
+	border-left-color: var(--team-red);
+}

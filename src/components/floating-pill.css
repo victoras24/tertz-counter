@@ -1,0 +1,93 @@
+.nav {
+	position: fixed;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100%;
+	max-width: 430px;
+	display: flex;
+	justify-content: center;
+	padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+	pointer-events: none;
+	z-index: 100;
+}
+
+.nav__pill {
+	display: flex;
+	align-items: center;
+	background: #13131e;
+	border: 0.5px solid #252535;
+	border-radius: var(--radius-full);
+	padding: 4px;
+	gap: 2px;
+	pointer-events: all;
+}
+
+.nav__item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 3px;
+	padding: 7px 16px;
+	border-radius: var(--radius-full);
+	border: none;
+	background: transparent;
+	cursor: pointer;
+	transition: background 0.15s, opacity 0.15s;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.nav__item:active:not(:disabled) {
+	transform: scale(0.95);
+}
+
+.nav__icon {
+	font-size: 17px;
+	line-height: 1;
+}
+
+.nav__label {
+	font-family: var(--font-body);
+	font-size: 9px;
+	font-weight: 700;
+	letter-spacing: 0.07em;
+	text-transform: uppercase;
+	line-height: 1;
+}
+
+.nav__item--active {
+	background: #1a2e4a;
+}
+
+.nav__item--active .nav__icon,
+.nav__item--active .nav__label {
+	color: var(--team-blue-light);
+}
+
+.nav__item--done {
+	background: transparent;
+}
+
+.nav__item--done .nav__icon,
+.nav__item--done .nav__label {
+	color: var(--team-blue);
+}
+
+.nav__item--locked {
+	background: transparent;
+	opacity: 0.3;
+	cursor: not-allowed;
+}
+
+.nav__item--locked .nav__icon,
+.nav__item--locked .nav__label {
+	color: var(--text-faint);
+}
+
+.page {
+	padding-bottom: calc(80px + env(safe-area-inset-bottom));
+}
+
+.nav--hidden {
+	display: none;
+}

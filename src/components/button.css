@@ -1,0 +1,37 @@
+.btn {
+	width: 100%;
+	padding: 13px;
+	border-radius: var(--radius-lg);
+	border: none;
+	font-family: var(--font-display);
+	font-size: 17px;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: opacity 0.15s, transform 0.1s;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.btn:active:not(:disabled) {
+	opacity: 0.85;
+	transform: scale(0.98);
+}
+
+.btn:disabled {
+	opacity: 0.35;
+	cursor: not-allowed;
+}
+
+.btn--primary {
+	background: linear-gradient(135deg, #3b6ee8, #2551c5);
+	color: #ffffff;
+}
+
+.btn--ghost {
+	background: var(--bg-elevated);
+	border: 0.5px solid var(--border-default);
+	color: var(--text-secondary);
+}

@@ -99,7 +99,7 @@ p {
 	flex-direction: column;
 	min-height: 100dvh;
 	padding: var(--space-lg);
-	padding-bottom: calc(var(--space-xl) + env(safe-area-inset-bottom));
+	padding-bottom: calc(80px + env(safe-area-inset-bottom));
 }
 
 .page.active {

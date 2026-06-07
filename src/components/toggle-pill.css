@@ -1,0 +1,50 @@
+.toggle-pill {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	background: var(--bg-elevated);
+	border: 0.5px solid var(--border-default);
+	border-radius: var(--radius-full);
+	padding: 8px 14px;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--text-muted);
+	cursor: pointer;
+	user-select: none;
+	transition: border-color 0.2s, color 0.2s;
+	width: fit-content;
+}
+
+.toggle-pill--on {
+	border-color: var(--team-blue-border);
+	color: var(--team-blue-light);
+}
+
+.toggle-track {
+	width: 32px;
+	height: 18px;
+	border-radius: var(--radius-full);
+	background: var(--border-strong);
+	position: relative;
+	transition: background 0.2s;
+	flex-shrink: 0;
+}
+
+.toggle-track--on {
+	background: var(--team-blue);
+}
+
+.toggle-thumb {
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background: #ffffff;
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	transition: transform 0.2s;
+}
+
+.toggle-track--on .toggle-thumb {
+	transform: translateX(14px);
+}
