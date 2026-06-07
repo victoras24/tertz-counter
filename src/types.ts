@@ -1,13 +1,11 @@
 export type LocaleUnionTypes = "el" | "en" | "ru";
 
-export type Suit = "spades" | "hearts" | "diamonds" | "clubs";
-
 export interface GameConfig {
 	teams: Team[];
 	isTotska: boolean;
 	maxRoundPoints: number;
 	bidedTeam: string;
-	bidedSuit: Suit;
+	bidedSuit: string;
 	gameHistory: Record<string, number>[];
 }
 
@@ -18,7 +16,7 @@ export interface GameState {
 
 export interface RoundState extends GameState {
 	bidedTeam: string;
-	bidedSuit: Suit;
+	bidedSuit: string;
 }
 
 export type Team = {
@@ -51,7 +49,7 @@ export type GameContextType = {
 		sectionPoints: SectionPoints,
 		action: "add" | "minus"
 	) => void;
-	setBidedSuit: (suit: Suit) => void;
+	setBidedSuit: (suit: string) => void;
 	setBidedTeam: (bidedTeam: string) => void;
 	getTeamPointsByTeamShortName: (teamShortName: string) => number | undefined;
 	nextRound: (currentRound: number) => void;

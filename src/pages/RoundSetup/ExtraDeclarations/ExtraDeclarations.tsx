@@ -2,48 +2,60 @@ import { useNavigate } from "react-router-dom";
 import { declarations } from "../../../helper/configs";
 import { useGameStore } from "../../../stores/GameStore";
 import { Teams } from "../components/Teams";
+import { Button } from "../../../components/button";
+import React from "react";
+import { DeclarationCard } from "../../../components/declaration-card";
+import "./ExtraDeclarations.css";
 
 export const ExtraDeclarations: React.FC = () => {
+	const [useCounts, setUseCounts] = React.useState<Record<string, number>>(
+		Object.fromEntries(declarations.map((d) => [d.name, 0]))
+	);
+
 	const { gameConfig, setBidedTeam, setPointsByTeamShortName, setGameConfig } =
 		useGameStore();
 	const navigate = useNavigate();
 
 	return (
-		<div>
-			<button
-				onClick={() => {
-					console.log("click");
-					navigate("/bid");
-				}}
-			>
-				Back button
-			</button>
+		<div className="container">
+			<div className="header">
+				<h1>DECLARATIONS</h1>
+				<span className="tag-pill">
+					Round {gameConfig.gameHistory.length + 1}
+				</span>
+			</div>
 			<Teams
 				config={gameConfig}
 				setTeam={(bidedTeam) => setBidedTeam(bidedTeam)}
 				setGameConfig={setGameConfig}
+				selected={gameConfig.bidedTeam}
 			/>
+
 			{declarations.map((d) => (
-				<div key={d.name}>
-					<button
-						onClick={() => {
-							setPointsByTeamShortName(
-								gameConfig.bidedTeam,
-								d.points,
-								"roundPoints",
-								"add"
-							);
-							setGameConfig((prev) => ({
-								...prev,
-								maxRoundPoints: prev.maxRoundPoints + d.points,
-							}));
-						}}
-					>
-						{d.name}
-					</button>
-				</div>
+				<DeclarationCard
+					key={d.name}
+					name={d.name}
+					points={d.points}
+					useLimit={d.useLimit}
+					useCount={useCounts[d.name]}
+					onClick={() => {
+						setUseCounts((prev) => ({ ...prev, [d.name]: prev[d.name] + 1 }));
+						setPointsByTeamShortName(
+							gameConfig.bidedTeam,
+							d.points,
+							"roundPoints",
+							"add"
+						);
+						setGameConfig((prev) => ({
+							...prev,
+							maxRoundPoints: prev.maxRoundPoints + d.points,
+						}));
+					}}
+				/>
 			))}
-			<button
+			<div className="spacer" />
+			<Button
+				label={"NEXT"}
 				onClick={() => {
 					navigate("/round-overview");
 					setGameConfig((prev) => ({
@@ -65,9 +77,7 @@ export const ExtraDeclarations: React.FC = () => {
 						],
 					}));
 				}}
-			>
-				Next
-			</button>
+			/>
 		</div>
 	);
 };

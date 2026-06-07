@@ -1,11 +1,21 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import "./floating-pill.css";
+import {
+	IconUsers,
+	IconCards,
+	IconSparkles,
+	IconChartBar,
+} from "@tabler/icons-react";
 
 const STEPS = [
-	{ path: "/", label: "Setup", icon: "ti-users" },
-	{ path: "/bid", label: "Bid", icon: "ti-cards" },
-	{ path: "/extra-declarations", label: "Declare", icon: "ti-sparkles" },
-	{ path: "/round-overview", label: "Round", icon: "ti-chart-bar" },
+	{ path: "/", label: "Setup", icon: <IconUsers size={18} /> },
+	{ path: "/bid", label: "Bid", icon: <IconCards size={18} /> },
+	{
+		path: "/extra-declarations",
+		label: "Declare",
+		icon: <IconSparkles size={18} />,
+	},
+	{ path: "/round-overview", label: "Round", icon: <IconChartBar size={18} /> },
 ];
 
 export const FloatingPillNav = () => {
@@ -37,7 +47,7 @@ export const FloatingPillNav = () => {
 							aria-current={isActive ? "page" : undefined}
 							aria-label={step.label}
 						>
-							<i className={`ti ${step.icon} nav__icon`} aria-hidden="true" />
+							<span className="ti ${step.icon} nav__icon">{step.icon}</span>
 							<span className="nav__label">{step.label}</span>
 						</button>
 					);

@@ -1,0 +1,101 @@
+.cardDisabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+.cardDisabled:active {
+	transform: none;
+}
+
+.uses {
+	display: flex;
+	gap: 4px;
+	align-items: center;
+}
+
+.dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: var(--border-strong);
+	transition: background 0.15s;
+}
+
+.dotFilled {
+	background: var(--accent-gold);
+}
+
+.cardBella .dotFilled {
+	background: var(--accent-purple);
+}
+
+/* DeclarationCard.module.css */
+.card {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: var(--bg-surface);
+	border: 0.5px solid var(--border-subtle);
+	border-radius: var(--radius-lg);
+	padding: 14px var(--space-lg);
+	cursor: pointer;
+	transition: border-color 0.15s, background 0.15s, transform 0.1s;
+	text-align: left;
+}
+
+.card:active {
+	transform: scale(0.98);
+	background: var(--bg-elevated);
+}
+
+.cardBella {
+	background: var(--accent-purple-bg);
+	border-color: var(--accent-purple-border);
+}
+
+.cardBella:active {
+	background: var(--accent-purple-bg);
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+}
+
+.name {
+	font-size: 15px;
+	font-weight: 600;
+	color: var(--text-primary);
+}
+
+.cardBella .name {
+	color: var(--accent-purple-text);
+}
+
+.pts {
+	font-size: 11px;
+	color: var(--accent-gold);
+	font-weight: 600;
+}
+
+.addBtn {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	background: var(--bg-elevated);
+	border: 0.5px solid var(--border-strong);
+	color: var(--text-muted);
+	font-size: 18px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+}
+
+.cardBella .addBtn {
+	background: var(--accent-purple-bg);
+	border-color: var(--accent-purple-border);
+	color: var(--accent-purple-text);
+}

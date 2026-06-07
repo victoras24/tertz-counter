@@ -3,7 +3,6 @@ import {
 	type GameConfig,
 	type LocaleUnionTypes,
 	type SectionPoints,
-	type Suit,
 	type Team,
 } from "../types";
 import { GameContext } from "./GameStore";
@@ -41,7 +40,7 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 		setGameConfig((prev) => ({ ...prev, locale }));
 	};
 
-	const setBidedSuit = (suit: Suit) => {
+	const setBidedSuit = (suit: string) => {
 		setGameConfig((prev) => ({
 			...prev,
 			bidedSuit: suit,

@@ -1,0 +1,62 @@
+.card {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: var(--accent-purple-bg);
+	border: 1px solid var(--border-subtle);
+	border-radius: var(--radius-lg);
+	padding: 14px var(--space-lg);
+	transition: border-color 0.2s;
+}
+
+.cardOn {
+	border-color: var(--accent-purple-border);
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+}
+
+.label {
+	font-size: 15px;
+	font-weight: 600;
+	color: var(--accent-purple-text);
+}
+
+.desc {
+	font-size: 11px;
+	color: #7c6aa0;
+}
+
+.track {
+	width: 46px;
+	height: 26px;
+	border-radius: var(--radius-full);
+	background: var(--border-strong);
+	border: none;
+	position: relative;
+	cursor: pointer;
+	transition: background 0.2s;
+	flex-shrink: 0;
+}
+
+.trackOn {
+	background: var(--accent-purple);
+}
+
+.thumb {
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: #fff;
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	transition: transform 0.2s;
+}
+
+.trackOn .thumb {
+	transform: translateX(20px);
+}

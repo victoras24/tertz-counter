@@ -1,0 +1,70 @@
+.card {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: var(--bg-surface);
+	border: 0.5px solid var(--border-subtle);
+	border-radius: var(--radius-lg);
+	padding: 14px var(--space-lg);
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+}
+
+.label {
+	font-size: 15px;
+	font-weight: 600;
+	color: var(--text-primary);
+}
+
+.points {
+	font-size: 11px;
+	color: var(--text-faint);
+}
+
+.points span {
+	color: var(--accent-gold);
+	font-weight: 600;
+}
+
+.counter {
+	display: flex;
+	align-items: center;
+	gap: var(--space-md);
+}
+
+.btn {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	background: var(--bg-elevated);
+	border: 0.5px solid var(--border-strong);
+	color: var(--text-muted);
+	font-size: 18px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: transform 0.1s, opacity 0.15s;
+}
+
+.btn:active:not(:disabled) {
+	transform: scale(0.9);
+}
+
+.btn:disabled {
+	opacity: 0.25;
+	cursor: not-allowed;
+}
+
+.value {
+	font-family: var(--font-display);
+	font-size: 22px;
+	font-weight: 700;
+	color: var(--text-primary);
+	min-width: 22px;
+	text-align: center;
+}

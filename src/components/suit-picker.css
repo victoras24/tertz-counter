@@ -1,0 +1,47 @@
+.suit-picker {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: var(--space-sm);
+}
+
+.suit-picker__card {
+	background: var(--bg-elevated);
+	border: 1px solid var(--border-default);
+	border-radius: var(--radius-md);
+	padding: 12px 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 4px;
+	cursor: pointer;
+	transition: border-color 0.15s, background 0.15s;
+}
+
+.suit-picker__card--active {
+	background: var(--team-blue-bg);
+	border-color: var(--team-blue);
+}
+
+.suit-picker__symbol {
+	font-size: 24px;
+	line-height: 1;
+}
+
+.suit-picker__symbol--red {
+	color: #ef4444;
+}
+.suit-picker__symbol--black {
+	color: var(--text-primary);
+}
+
+.suit-picker__label {
+	font-size: 9px;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--text-faint);
+}
+
+.suit-picker__card--active .suit-picker__label {
+	color: var(--team-blue-light);
+}
