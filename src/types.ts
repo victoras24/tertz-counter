@@ -1,3 +1,5 @@
+import type { JSX } from "react";
+
 export type LocaleUnionTypes = "el" | "en" | "ru";
 
 export interface GameConfig {
@@ -52,13 +54,14 @@ export type GameContextType = {
 	setBidedSuit: (suit: string) => void;
 	setBidedTeam: (bidedTeam: string) => void;
 	getTeamPointsByTeamShortName: (teamShortName: string) => number | undefined;
-	nextRound: (currentRound: number) => void;
+	nextRound: () => void;
 };
 
-export type Declarations = "tertz" | "palto" | "bella";
+export type Declarations = "Tertz" | "Palto" | "Bella";
 
 export type DeclarationConfig = {
 	name: Declarations;
 	points: number;
 	useLimit: number;
+	icon: JSX.Element[];
 }[];

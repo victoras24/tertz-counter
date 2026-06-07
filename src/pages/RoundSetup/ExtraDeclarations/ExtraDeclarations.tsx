@@ -51,6 +51,21 @@ export const ExtraDeclarations: React.FC = () => {
 							maxRoundPoints: prev.maxRoundPoints + d.points,
 						}));
 					}}
+					onRemove={() => {
+						if (useCounts[d.name] === 0) return;
+						setUseCounts((prev) => ({ ...prev, [d.name]: prev[d.name] - 1 }));
+						setPointsByTeamShortName(
+							gameConfig.bidedTeam,
+							d.points,
+							"roundPoints",
+							"minus"
+						);
+						setGameConfig((prev) => ({
+							...prev,
+							maxRoundPoints: prev.maxRoundPoints - d.points,
+						}));
+					}}
+					icons={d.icons}
 				/>
 			))}
 			<div className="spacer" />

@@ -1,7 +1,34 @@
-import type { DeclarationConfig } from "../types";
+import {
+	IconPlayCard10,
+	IconPlayCardA,
+	IconPlayCardJ,
+	IconPlayCardK,
+	IconPlayCardQ,
+} from "@tabler/icons-react";
 
-export const declarations: DeclarationConfig = [
-	{ name: "tertz", points: 20, useLimit: 4 },
-	{ name: "palto", points: 50, useLimit: 4 },
-	{ name: "bella", points: 20, useLimit: 1 },
+export const declarations = [
+	{
+		name: "Tertz",
+		points: 20,
+		useLimit: 4,
+		icons: [IconPlayCardA, IconPlayCardK, IconPlayCardQ],
+	},
+	{
+		name: "Palto",
+		points: 50,
+		useLimit: 4,
+		icons: [
+			IconPlayCardA,
+			IconPlayCardK,
+			IconPlayCardQ,
+			IconPlayCardJ,
+			IconPlayCard10,
+		],
+	},
+	{
+		name: "Bella",
+		points: 20,
+		useLimit: 1,
+		icons: [IconPlayCardK, IconPlayCardQ],
+	},
 ];

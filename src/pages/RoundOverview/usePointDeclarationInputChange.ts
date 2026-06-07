@@ -1,63 +1,45 @@
 import React from "react";
 import { useGameStore } from "../../stores/GameStore";
 import type { Team } from "../../types";
-import type { Validations } from "./RoundOverview.types";
 
 export const usePointDeclarationInputChange = () => {
 	const { setPointsByTeamShortName, setGameConfig, gameConfig } =
 		useGameStore();
+	const [activeTeam, setActiveTeam] = React.useState<string | null>(null);
 	const [input, setInput] = React.useState<number>(0);
-	const [validations, setValidations] = React.useState<Validations>({
-		isInputExceededMaxRoundPoints: false,
-	});
+	const [isInputExceededMaxRoundPoints, setIsInputExceededMaxRoundPoints] =
+		React.useState(false);
 
-	// reset inputs when game refresh
 	React.useEffect(() => {
 		setGameConfig((prev) => ({
 			...prev,
-			teams: [
-				...prev.teams.map((prevTeam) => {
-					return {
-						...prevTeam,
-						score: {
-							...prevTeam.score,
-							roundPoints: prevTeam.score.roundDeclarations,
-						},
-					};
-				}),
-			],
+			teams: prev.teams.map((prevTeam) => ({
+				...prevTeam,
+				score: {
+					...prevTeam.score,
+					roundPoints: prevTeam.score.roundDeclarations,
+				},
+			})),
 		}));
 	}, [setGameConfig]);
 
-	const validationChecks = (
-		event: React.ChangeEvent<HTMLInputElement, HTMLInputElement>
-	) => {
-		setValidations({
-			isInputExceededMaxRoundPoints:
-				Number(event.target.value) > gameConfig.maxRoundPoints,
-		});
-	};
-
 	const resetPoints = () => {
 		setInput(0);
+		setIsInputExceededMaxRoundPoints(false);
 		setGameConfig((prev) => ({
 			...prev,
-			teams: [
-				...prev.teams.map((prevTeam) => {
-					return {
-						...prevTeam,
-						score: {
-							...prevTeam.score,
-							roundPoints: prevTeam.score.roundDeclarations,
-						},
-					};
-				}),
-			],
+			teams: prev.teams.map((prevTeam) => ({
+				...prevTeam,
+				score: {
+					...prevTeam.score,
+					roundPoints: prevTeam.score.roundDeclarations,
+				},
+			})),
 		}));
 	};
 
 	const handleCurrentTeamInputChange = (
-		event: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
+		event: React.ChangeEvent<HTMLInputElement>,
 		team: Team
 	) => {
 		setPointsByTeamShortName(
@@ -66,7 +48,6 @@ export const usePointDeclarationInputChange = () => {
 			"roundPoints",
 			"minus"
 		);
-
 		setPointsByTeamShortName(
 			team.shortName,
 			Number(event.target.value) + team.score.roundDeclarations,
@@ -76,49 +57,69 @@ export const usePointDeclarationInputChange = () => {
 	};
 
 	const handleOtherTeamInputChange = (
-		event: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
+		event: React.ChangeEvent<HTMLInputElement>,
 		team: Team
 	) => {
 		setGameConfig((prev) => ({
 			...prev,
-			teams: [
-				...prev.teams.map((prevTeam) => {
-					if (prevTeam.shortName !== team.shortName) {
-						return {
-							...prevTeam,
-							score: {
-								...prevTeam.score,
-								roundPoints:
-									prev.maxRoundPoints -
-									Number(event.target.value) -
-									team.score.roundDeclarations,
-							},
-						};
-					} else {
-						return prevTeam;
-					}
-				}),
-			],
+			teams: prev.teams.map((prevTeam) => {
+				if (prevTeam.shortName !== team.shortName) {
+					return {
+						...prevTeam,
+						score: {
+							...prevTeam.score,
+							roundPoints:
+								prev.maxRoundPoints -
+								Number(event.target.value) -
+								team.score.roundDeclarations,
+						},
+					};
+				}
+				return prevTeam;
+			}),
 		}));
 	};
 
 	const handleChange = (
-		event: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
+		event: React.ChangeEvent<HTMLInputElement>,
 		team: Team
 	) => {
 		if (event.target.value === "") {
+			setActiveTeam(null);
 			resetPoints();
 			return;
 		}
 
+		setActiveTeam(team.shortName);
 		handleCurrentTeamInputChange(event, team);
-
 		setInput(Number(event.target.value));
-
 		handleOtherTeamInputChange(event, team);
-
-		validationChecks(event);
+		setIsInputExceededMaxRoundPoints(
+			Number(event.target.value) > gameConfig.maxRoundPoints
+		);
 	};
 
-	return { input, validations, handleChange };
+	const isTeamFailedBid =
+		input > 0 &&
+		gameConfig.teams.some(
+			(t) =>
+				t.isRoundBided && t.score.roundPoints < gameConfig.maxRoundPoints / 2
+		);
+
+	const failedTeamName =
+		gameConfig.teams.find(
+			(t) =>
+				t.isRoundBided && t.score.roundPoints < gameConfig.maxRoundPoints / 2
+		)?.shortName ?? null;
+
+	return {
+		input,
+		activeTeam,
+		handleChange,
+		validations: {
+			isInputExceededMaxRoundPoints,
+			isTeamFailedBid,
+			failedTeamName,
+		},
+	};
 };

@@ -16,7 +16,7 @@ const defaultConfig: GameConfig = {
 	isTotska: false,
 	maxRoundPoints: 160,
 	bidedTeam: "",
-	bidedSuit: "spades",
+	bidedSuit: "",
 	gameHistory: [],
 };
 
@@ -169,7 +169,7 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 		}));
 
 		resetRound();
-		console.log(isMaxRoundPointsExceeded(gameConfig.teams));
+
 		if (isMaxRoundPointsExceeded(gameConfig.teams)) setSessionPoint();
 
 		navigate("/bid");
