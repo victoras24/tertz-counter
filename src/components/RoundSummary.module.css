@@ -1,0 +1,143 @@
+.card {
+	background: var(--bg-surface);
+	border: 0.5px solid var(--border-subtle);
+	border-radius: var(--radius-lg);
+	padding: 14px var(--space-lg);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-sm);
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.title {
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--text-faint);
+}
+
+.suit {
+	font-size: 20px;
+	line-height: 1;
+}
+
+.suitRed {
+	color: #ef4444;
+}
+.suitBlack {
+	color: var(--text-primary);
+}
+
+.divider {
+	height: 0.5px;
+	background: var(--border-subtle);
+	margin: 2px 0;
+}
+
+.teamRow {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: var(--space-md);
+	padding: var(--space-sm) 0;
+}
+
+.teamLeft {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.teamName {
+	font-family: var(--font-display);
+	font-size: 18px;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+}
+
+.blue {
+	color: var(--team-blue-light);
+}
+.red {
+	color: var(--team-red-light);
+}
+
+.bidderTag {
+	font-size: 9px;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	padding: 2px 6px;
+	border-radius: var(--radius-full);
+	background: var(--bg-elevated);
+	color: var(--text-muted);
+	border: 0.5px solid var(--border-default);
+	width: fit-content;
+}
+
+.breakdown {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	align-items: flex-end;
+	min-width: 120px;
+}
+
+.breakdownRow {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	align-items: center;
+}
+
+.breakdownLabel {
+	font-size: 11px;
+	color: var(--text-faint);
+}
+
+.breakdownValue {
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--text-secondary);
+	font-family: var(--font-display);
+}
+
+.breakdownValueGold {
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--accent-gold);
+	font-family: var(--font-display);
+}
+
+.total {
+	font-family: var(--font-display);
+	font-size: 20px;
+	font-weight: 700;
+}
+
+.poolRow {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.poolLabel {
+	font-size: 11px;
+	color: var(--text-faint);
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+}
+
+.poolValue {
+	font-family: var(--font-display);
+	font-size: 15px;
+	font-weight: 700;
+	color: var(--text-muted);
+}

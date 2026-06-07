@@ -6,6 +6,7 @@ import { usePointDeclarationInputChange } from "./usePointDeclarationInputChange
 import styles from "./RoundOverview.module.css";
 import { RoundTeamCard } from "../../components/round-team-card";
 import { WarningsCard } from "../../components/warning-card";
+import { RoundSummary } from "../../components/round-summary";
 
 export const RoundOverview: React.FC = () => {
 	const { gameConfig, nextRound } = useGameStore();
@@ -44,6 +45,11 @@ export const RoundOverview: React.FC = () => {
 				))}
 			</div>
 			<WarningsCard warnings={warnings} />
+			<RoundSummary
+				teams={gameConfig.teams}
+				bidedSuit={gameConfig.bidedSuit}
+				maxRoundPoints={gameConfig.maxRoundPoints}
+			/>
 
 			<div className={styles.spacer} />
 			<Button label="NEXT ROUND" onClick={nextRound} />
