@@ -172,7 +172,7 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 
 		if (isMaxRoundPointsExceeded(gameConfig.teams)) setSessionPoint();
 
-		navigate("/bid");
+		navigate("/round-setup");
 	};
 
 	return (

@@ -1,17 +1,11 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import "./floating-pill.css";
-import {
-	IconCards,
-	IconSparkles,
-	IconChartBar,
-	IconReload,
-} from "@tabler/icons-react";
+import { IconSparkles, IconChartBar, IconReload } from "@tabler/icons-react";
 
 const STEPS = [
 	{ path: "/", label: "New Game", icon: <IconReload size={18} /> },
-	{ path: "/bid", label: "Bid", icon: <IconCards size={18} /> },
 	{
-		path: "/extra-declarations",
+		path: "/round-setup",
 		label: "Declare",
 		icon: <IconSparkles size={18} />,
 	},

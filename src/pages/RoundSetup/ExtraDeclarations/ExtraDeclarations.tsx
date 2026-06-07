@@ -6,14 +6,20 @@ import { Button } from "../../../components/button";
 import React from "react";
 import { DeclarationCard } from "../../../components/declaration-card";
 import "./ExtraDeclarations.css";
+import { SuitPicker } from "../../../components/suit-picker";
 
 export const ExtraDeclarations: React.FC = () => {
 	const [useCounts, setUseCounts] = React.useState<Record<string, number>>(
 		Object.fromEntries(declarations.map((d) => [d.name, 0]))
 	);
 
-	const { gameConfig, setBidedTeam, setPointsByTeamShortName, setGameConfig } =
-		useGameStore();
+	const {
+		gameConfig,
+		setBidedTeam,
+		setPointsByTeamShortName,
+		setGameConfig,
+		setBidedSuit,
+	} = useGameStore();
 	const navigate = useNavigate();
 
 	return (
@@ -30,6 +36,7 @@ export const ExtraDeclarations: React.FC = () => {
 				setGameConfig={setGameConfig}
 				selected={gameConfig.bidedTeam}
 			/>
+			<SuitPicker selected={gameConfig.bidedSuit} onChange={setBidedSuit} />
 
 			{declarations.map((d) => (
 				<DeclarationCard

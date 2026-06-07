@@ -22,7 +22,7 @@ export const GameSetup = () => {
 			<form
 				action={(formData) => {
 					initializeGame(formData);
-					navigate("/bid");
+					navigate("/round-setup");
 				}}
 			>
 				<div className={styles.inputs}>
