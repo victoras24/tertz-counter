@@ -1,29 +1,33 @@
 import "./input.css";
-
 interface InputProps {
 	id: string;
-	type: React.InputHTMLAttributes<HTMLInputElement>["type"];
-	color: InputColor;
+	type: string;
+	color: "blue" | "red";
 	placeholder: string;
-	maxLength: number;
+	maxLength?: number;
+	value?: string;
+	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
-
-type InputColor = "red" | "blue";
 
 export const Input: React.FC<InputProps> = ({
 	id,
+	type,
 	color,
 	placeholder,
-	type,
 	maxLength,
+	value,
+	onChange,
 }) => {
 	return (
 		<input
-			className={`input input--${color} flex-1`}
-			type={type}
-			placeholder={placeholder}
 			id={id}
+			name={id}
+			type={type}
+			className={`input input--${color}`}
+			placeholder={placeholder}
 			maxLength={maxLength}
+			value={value}
+			onChange={onChange}
 		/>
 	);
 };
