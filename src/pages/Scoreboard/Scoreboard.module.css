@@ -1,0 +1,276 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	min-height: 100dvh;
+	padding: var(--space-lg);
+	padding-bottom: calc(80px + env(safe-area-inset-bottom));
+	gap: var(--space-lg);
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.tagPill {
+	font-size: 10px;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	padding: 2px 8px;
+	border-radius: 20px;
+	background: #1e1e2e;
+	color: #7c7caa;
+	border: 0.5px solid #2a2a3a;
+}
+
+.sessionCard {
+	display: flex;
+	align-items: center;
+	background: var(--bg-surface);
+	border: 0.5px solid var(--border-subtle);
+	border-radius: var(--radius-lg);
+	padding: var(--space-lg);
+	gap: var(--space-md);
+}
+
+.sessionCol {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2px;
+}
+
+.sessionName {
+	font-size: 13px;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.sessionScore {
+	font-family: var(--font-display);
+	font-size: 42px;
+	font-weight: 700;
+	line-height: 1;
+}
+
+.sessionLabel {
+	font-size: 9px;
+	color: var(--text-faint);
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	font-weight: 600;
+}
+
+.sessionDivider {
+	width: 0.5px;
+	height: 60px;
+	background: var(--border-subtle);
+	flex-shrink: 0;
+}
+
+.sessionMiddle {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 4px;
+	padding: 0 var(--space-sm);
+}
+
+.sessionTitle {
+	font-size: 9px;
+	font-weight: 700;
+	letter-spacing: 0.15em;
+	text-transform: uppercase;
+	color: var(--text-faint);
+}
+
+.sessionSub {
+	font-size: 8px;
+	color: var(--text-faint);
+	text-align: center;
+	line-height: 1.3;
+}
+
+.gameCard {
+	background: var(--bg-surface);
+	border: 0.5px solid var(--border-subtle);
+	border-radius: var(--radius-lg);
+	padding: var(--space-lg);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-md);
+}
+
+.gameHeader {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.sectionLabel {
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--text-faint);
+}
+
+.gameTarget {
+	font-size: 11px;
+	font-weight: 600;
+	color: var(--accent-gold);
+}
+
+.gameScores {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.gameTeam {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.gameTeamName {
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.gamePoints {
+	font-family: var(--font-display);
+	font-size: 38px;
+	font-weight: 700;
+	line-height: 1;
+}
+
+.gameSep {
+	font-size: 20px;
+	color: var(--text-faint);
+}
+
+.progressSection {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-sm);
+}
+
+.progressRow {
+	display: flex;
+	align-items: center;
+	gap: var(--space-sm);
+}
+
+.progressLabel {
+	font-size: 10px;
+	font-weight: 600;
+	color: var(--text-faint);
+	width: 24px;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.progressTrack {
+	flex: 1;
+	height: 6px;
+	background: var(--bg-elevated);
+	border-radius: var(--radius-full);
+	overflow: hidden;
+}
+
+.progressFill {
+	height: 100%;
+	border-radius: var(--radius-full);
+	transition: width 0.4s ease;
+}
+
+.progressBlue {
+	background: var(--team-blue);
+}
+.progressRed {
+	background: var(--team-red);
+}
+
+.progressPct {
+	font-size: 10px;
+	font-weight: 600;
+	color: var(--text-faint);
+	width: 28px;
+	text-align: right;
+}
+
+.historyCard {
+	background: var(--bg-surface);
+	border: 0.5px solid var(--border-subtle);
+	border-radius: var(--radius-lg);
+	padding: var(--space-lg);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-sm);
+}
+
+.historyHeader {
+	display: flex;
+	align-items: center;
+	padding: var(--space-xs) 0;
+}
+
+.historyDivider {
+	height: 0.5px;
+	background: var(--border-subtle);
+	margin: 2px 0;
+}
+
+.historyRow {
+	display: flex;
+	align-items: center;
+	padding: 6px 0;
+	border-bottom: 0.5px solid var(--border-subtle);
+}
+
+.historyRow:last-child {
+	border-bottom: none;
+}
+
+.historyRound {
+	width: 24px;
+	font-size: 11px;
+	color: var(--text-faint);
+	font-weight: 600;
+}
+
+.historyTeam,
+.historyPts {
+	flex: 1;
+	font-family: var(--font-display);
+	font-size: 16px;
+	font-weight: 700;
+	text-align: center;
+}
+
+.historyWinner,
+.historyWinnerName {
+	width: 40px;
+	font-size: 11px;
+	font-weight: 700;
+	text-align: right;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.blue {
+	color: var(--team-blue-light);
+}
+.red {
+	color: var(--team-red-light);
+}
+.muted {
+	color: var(--text-faint);
+}

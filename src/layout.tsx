@@ -5,6 +5,7 @@ const STEPS = [
 	{ path: "/", label: "Restart", icon: "ti-users" },
 	{ path: "/round-setup", label: "Declare", icon: "ti-sparkles" },
 	{ path: "/round-overview", label: "Round", icon: "ti-chart-bar" },
+	{ path: "/scoreboard", label: "Scoreboard", icon: "ti-chart-bar" },
 ];
 
 export function Layout() {

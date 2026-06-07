@@ -1,10 +1,11 @@
 .container {
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
 	min-height: 100dvh;
 	padding: var(--space-lg);
 	padding-bottom: calc(80px + env(safe-area-inset-bottom));
-	gap: var(--space-lg);
+	gap: 3rem;
 }
 
 .header {

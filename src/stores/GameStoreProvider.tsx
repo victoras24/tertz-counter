@@ -101,7 +101,7 @@ export function GameStoreProvider({ children }: { children: React.ReactNode }) {
 		setGameConfig((prev) => ({
 			...prev,
 			bidedTeam: "",
-			bidedSuit: "spades",
+			bidedSuit: "",
 			maxRoundPoints: 0,
 			teams: [
 				...prev.teams.map((prevTeam) => ({

@@ -2,7 +2,6 @@
 	display: flex;
 	gap: var(--space-sm);
 	width: 100%;
-	margin-bottom: 3rem;
 }
 
 .team {

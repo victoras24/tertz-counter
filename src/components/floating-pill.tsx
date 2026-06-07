@@ -1,6 +1,11 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import "./floating-pill.css";
-import { IconSparkles, IconChartBar, IconReload } from "@tabler/icons-react";
+import {
+	IconSparkles,
+	IconChartBar,
+	IconReload,
+	IconScoreboard,
+} from "@tabler/icons-react";
 
 const STEPS = [
 	{ path: "/", label: "New Game", icon: <IconReload size={18} /> },
@@ -10,6 +15,11 @@ const STEPS = [
 		icon: <IconSparkles size={18} />,
 	},
 	{ path: "/round-overview", label: "Round", icon: <IconChartBar size={18} /> },
+	{
+		path: "/scoreboard",
+		label: "Scoreboard",
+		icon: <IconScoreboard size={18} />,
+	},
 ];
 
 export const FloatingPillNav = () => {
@@ -22,9 +32,10 @@ export const FloatingPillNav = () => {
 		<nav className="nav" aria-label="Game navigation">
 			<div className="nav__pill">
 				{STEPS.map((step, i) => {
+					const isScoreboard = step.path === "/scoreboard";
 					const isActive = i === currentIndex;
-					const isDone = i < currentIndex;
-					const isLocked = i > currentIndex;
+					const isDone = i < currentIndex || isScoreboard;
+					const isLocked = i > currentIndex && !isScoreboard;
 
 					return (
 						<button
@@ -36,12 +47,12 @@ export const FloatingPillNav = () => {
 									? "nav__item--done"
 									: "nav__item--locked"
 							}`}
-							onClick={() => isDone && navigate(step.path)}
+							onClick={() => (isDone || isScoreboard) && navigate(step.path)}
 							disabled={isLocked}
 							aria-current={isActive ? "page" : undefined}
 							aria-label={step.label}
 						>
-							<span className="ti ${step.icon} nav__icon">{step.icon}</span>
+							<span className="nav__icon">{step.icon}</span>
 							<span className="nav__label">{step.label}</span>
 						</button>
 					);

@@ -28,7 +28,6 @@ export const RoundSetup: React.FC = () => {
 
 	return (
 		<div className={styles.container}>
-			{/* Header */}
 			<div className={styles.header}>
 				<h1>{step === "bid" ? "BIDDING" : "DECLARATIONS"}</h1>
 				<span className={styles.tagPill}>
@@ -36,7 +35,6 @@ export const RoundSetup: React.FC = () => {
 				</span>
 			</div>
 
-			{/* Step indicator */}
 			<div className={styles.steps}>
 				<div
 					className={`${styles.step} ${
@@ -57,7 +55,6 @@ export const RoundSetup: React.FC = () => {
 				</div>
 			</div>
 
-			{/* Shared: Teams */}
 			<Teams
 				config={gameConfig}
 				setTeam={(bidedTeam) => setBidedTeam(bidedTeam)}
@@ -65,7 +62,6 @@ export const RoundSetup: React.FC = () => {
 				selected={gameConfig.bidedTeam}
 			/>
 
-			{/* Step content */}
 			{step === "bid" ? (
 				<div className={styles.content}>
 					<p className={styles.sectionTitle}>Choose suit</p>
@@ -121,7 +117,6 @@ export const RoundSetup: React.FC = () => {
 
 			<div className={styles.spacer} />
 
-			{/* Button */}
 			{step === "bid" ? (
 				<Button
 					label="Next"
